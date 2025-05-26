@@ -6,14 +6,10 @@
   <style>
     /* Base & Slide Layout */
     body, html {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      width: 100vw;
-      height: 100vh;
+      margin: 0; padding: 0;
+      overflow: hidden; width: 100vw; height: 100vh;
       font-family: 'Georgia', serif;
-      background-color: #000;
-      color: #fff;
+      background-color: #000; color: #fff;
     }
     #slides { position: relative; width: 100%; height: 100%; }
     .slide {
@@ -25,8 +21,7 @@
 
     /* Slide 1 */
     .slide.one {
-      background-color: black;
-      color: white;
+      background-color: black; color: white;
     }
     .slide.one .header { background-color: #2ca39f; height: 150px; }
     .slide.one .content {
@@ -55,8 +50,6 @@
       position: absolute; top: 40px; right: 40px;
       border-radius: 10px; box-shadow: 0 3px 8px rgba(0,0,0,0.3);
     }
-    .slide.three img { top: 40px; }
-    .slide.four img { top: 40px; }
     .slide.two .footer,
     .slide.three .footer,
     .slide.four .footer {
@@ -70,10 +63,13 @@
       filter: invert(1) hue-rotate(180deg);
     }
     .arg-text {
+      position: absolute;
+      top: 20px; left: 20px;
       color: red;
-      font-size: 20px;
-      margin-top: 20px;
-      max-width: 80%;
+      font-size: 18px;
+      line-height: 1.2;
+      white-space: pre-wrap;
+      max-width: 90%;
       animation: flicker 0.2s infinite;
     }
     @keyframes flicker {
@@ -81,38 +77,36 @@
       20%,24%,55% { opacity: 0.1; }
     }
 
-    /* Glitch Effects */
+    /* Glitch 1 – Violent Shake */
     body.glitch1 {
-      animation: glitch1 1s infinite;
+      animation: shakeViolent 0.3s infinite;
     }
-    @keyframes glitch1 {
-      0%   { clip: rect(20px,9999px,30px,0); transform: translate(0.5px,-0.5px); }
-      20%  { clip: rect(50px,9999px,60px,0); transform: translate(-0.5px,0.5px); }
-      40%  { clip: rect(30px,9999px,40px,0); transform: translate(-0.5px,-0.5px); }
-      60%  { clip: rect(10px,9999px,20px,0); transform: translate(0.5px,0.5px); }
-      80%  { clip: rect(70px,9999px,80px,0); transform: translate(-0.5px,0); }
-      100% { clip: rect(20px,9999px,30px,0); transform: translate(0,-0.5px); }
-    }
-
-    body.glitch2 {
-      animation: hueShift 2s infinite;
-    }
-    @keyframes hueShift {
-      0%   { filter: hue-rotate(0deg) blur(0); }
-      50%  { filter: hue-rotate(180deg) blur(1px); }
-      100% { filter: hue-rotate(360deg) blur(0); }
+    @keyframes shakeViolent {
+      0%   { transform: translate(0,0)    rotate(0); }
+      10%  { transform: translate(-20px, 20px) rotate(-2deg); }
+      20%  { transform: translate(20px, -20px) rotate(2deg); }
+      30%  { transform: translate(-20px, -20px) rotate(-3deg); }
+      40%  { transform: translate(20px, 20px) rotate(3deg); }
+      50%  { transform: translate(-20px, 20px) rotate(-2deg); }
+      60%  { transform: translate(20px, -20px) rotate(2deg); }
+      70%  { transform: translate(-20px, -20px) rotate(-3deg); }
+      80%  { transform: translate(20px, 20px) rotate(3deg); }
+      90%  { transform: translate(-20px, -20px) rotate(-1deg); }
+      100% { transform: translate(0,0)    rotate(0); }
     }
 
-    body.glitch3 img {
-      animation: shake 0.5s infinite;
-      filter: blur(2px) brightness(1.2);
+    /* Glitch 2 – Datamosh clones */
+    .datamosh-clone {
+      position: absolute;
+      pointer-events: none;
+      opacity: 0.6;
+      mix-blend-mode: difference;
     }
-    @keyframes shake {
-      0%   { transform: translate(0,0); }
-      25%  { transform: translate(-2px,2px); }
-      50%  { transform: translate(2px,-2px); }
-      75%  { transform: translate(-2px,2px); }
-      100% { transform: translate(0,0); }
+
+    /* Glitch 3 – Text disappear */
+    body.glitch3 .slide p,
+    body.glitch3 .arg-text {
+      visibility: hidden;
     }
   </style>
 </head>
@@ -139,7 +133,7 @@
         data-alt="sinatra2_alt.jpg"
         alt="Jaunasis Frank Sinatra">
       <p>
-        Frank Sinatra gimė 1915 m. gruodžio 12 dieną, Hobokene, Naujajame Džersyje, italų imigrantų šeimoje. Jo šeima gyveno kukliai, o jaunasis Frankas nuo pat vaikystės rodė ypatingą susidomėjimą muzika. Jis dažnai dainuodavo mokyklos renginiuose, vietiniuose klubuose ir radijo laidose. Jo balsas ir charizma padėjo jam greitai tapti pastebėtam muzikos pasaulyje.
+        Frank Sinatra gimė 1915 m. gruodžio 12 dieną Hobokene, Naujajame Džersyje. Jo šeima...        
       </p>
       <div class="footer"></div>
     </section>
@@ -149,10 +143,10 @@
       <h1>Karjera ir šlovė</h1>
       <img
         src="sinatra3.jpg"
-        data-alt="sinatra3_alt.jpg"
+        data-alt="sinatra3_alt.gif"
         alt="Sinatra karjeros viršūnėje">
       <p>
-        Sinatra tapo viena didžiausių XX amžiaus žvaigždžių, atlikdamas tokius hitus kaip „My Way“, „Strangers in the Night“ ir „Fly Me to the Moon“. Jo dainos tapo klasika, o pats Sinatra – populiariosios muzikos ikona. Be muzikos, Sinatra taip pat turėjo sėkmingą aktoriaus karjerą, už vaidmenį filme „From Here to Eternity“ (1953) buvo apdovanotas „Oskaru“.
+        Sinatra tapo žvaigžde su „My Way“, „Strangers in the Night“, „Fly Me to the Moon“...      
       </p>
       <div class="footer"></div>
     </section>
@@ -165,110 +159,128 @@
         data-alt="sinatra4_alt.jpg"
         alt="Vyresnysis Frank Sinatra">
       <p>
-        Sinatra buvo charizmatiška ir kontraversiška asmenybė. Jis buvo vedęs keturis kartus, tarp jo žmonų – garsios aktorės Ava Gardner ir Mia Farrow. Frank Sinatra mirė 1998 m. gegužės 14 dieną Kalifornijoje, palikdamas didžiulę įtaką muzikai ir populiariajai kultūrai. Jo muzika iki šių dienų populiari visame pasaulyje ir įkvepia naujas kartas atlikėjų.
+        Sinatra buvo charizmatiška ir kontraversiška asmenybė; keturiskart vedęs...      
       </p>
       <div class="footer"></div>
     </section>
   </div>
 
-  <!-- Audio Elements -->
+  <!-- Audio -->
   <audio id="sound1" src="sound1.mp3"></audio>
   <audio id="sound2" src="sound2.mp3"></audio>
   <audio id="sound3" src="sound3.mp3"></audio>
 
-  <!-- Socket.IO & Interaction Script -->
   <script src="/socket.io/socket.io.js"></script>
   <script>
     const socket = io();
     const slides = document.querySelectorAll('.slide');
     let current = 0;
 
-    // Slide navigation
+    // Slide nav
     function showSlide(n) {
       slides[current].classList.remove('active');
       current = (n + slides.length) % slides.length;
       slides[current].classList.add('active');
     }
     document.addEventListener('keydown', e => {
-      if (e.key === 'ArrowRight') showSlide(current + 1);
-      if (e.key === 'ArrowLeft')  showSlide(current - 1);
+      if (e.key==='ArrowRight') showSlide(current+1);
+      if (e.key==='ArrowLeft')  showSlide(current-1);
     });
 
-    // Fullscreen on load
+    // Fullscreen
     window.addEventListener('load', () => {
-      const el = document.documentElement;
-      if (el.requestFullscreen) el.requestFullscreen().catch(()=>{});
+      const el=document.documentElement;
+      if(el.requestFullscreen) el.requestFullscreen().catch(()=>{});
     });
 
-    // ARG gibberish per slide
-    const argMessages = [
+    // ARG gibberish lines
+    const glitchLines = [
       "P̸͎͉͍͜a̷͇̩̻̣̭͖s̷͔̻̱̗ş̸͙̻̜̮̭e̵͖͈͓d̶̩ ̴͇̰i̵͍̖͔̺̞n̵̰̳͎ ̶̭̞t̷̜͖ḥ̷̞̣̭e̷̗͜ ̷̢̧̤m̴̻̰ạ̷̙̖r̷̤̞g̷͎̟͍i̶̟̻ͅn̶̤͇͎s̴͓͇",
-      "W̷̞̱̲e̵͇ ̷͓͎a̷̤r̷͖͔ḛ̵͈ ̷͎̞̠d̴̞̲o̴̤͜t̴̝t̵̫̭e̷͓͈d̶͚͚ ̵͇͔o̴͖̠u̶̗̥t̸̘̣ ̷͇͎ḇ̷͔e̷͖͇l̶̤̪o̷̼̹w̴͓̥",
-      "G̵͔̖l̴̢͎i̶͙t̵͙͙c̷̠̹h̶̬͕ ̶̻̮t̶̜͈h̴͖̻e̷̲ͅ ̴͎͇͖ţ̵̥e̴͖̣x̶̫t̷͚̖u̵͙̱r̸͉e̵͔̼",
+      "W̷̞̱̲e̵͇ ̷͓͎a̷̤r̷͖͔ḛ̵͈ ̷͎̞̠d̴̞̲o̴̤͜t̴̝t̵̫̭e̷͓͈d̶͚͚ ̵͇͔o̴͖̠u̷̳̖t̴̼̹ ̷͇͎ḇ̷͔e̷͖͇l̶̤̪o̷̼̹w̴͓̥",
+      "G̵͔̖l̴̢͎i̶͙t̵͙͙c̷̠̹h̶̬͕ ̶̻̮t̶̜͈h̴͖̻e̷̲ͅ ̴͎͇͖ţ̵̥e̴͖̣x̶̫t̷͚̖u̵͙̱r̸͉̟e̵͔̼",
       "D̷̻͓r̷̻̣i̶͖̬p̶̟̣ ̶͚̳o̵͖̪u̷̳͖t̴̼̹ ̴͔͈i̴̤͕n̸̡̲ ̴̢̭t̵͙̮h̶̗̯e̸͍̭ ̴̦̘s̴̰̠h̶̭͍a̸̧̱d̸͓̭o̶̘̭w̶̡͇s̷̺̲"
     ];
+    const baseGibber = glitchLines.join(' ') + ' ';
+    const gargle = baseGibber.repeat(15);
+    const argMessages = [gargle, gargle, gargle, gargle];
 
     // Audio helpers
-    function setVolume(n) {
-      [1,2,3].forEach(i => {
-        const a = document.getElementById('sound'+i);
-        a.volume = Math.min(Math.max(n/100,0),1);
+    function setVolume(n){
+      [1,2,3].forEach(i=>{
+        const a=document.getElementById('sound'+i);
+        a.volume=Math.min(Math.max(n/100,0),1);
       });
     }
-    function playSound(i) {
-      const a = document.getElementById('sound'+i);
-      a.currentTime = 0;
-      a.play();
+    function playSound(i){
+      const a=document.getElementById('sound'+i);
+      a.currentTime=0; a.play();
     }
 
-    // ARG on/off
-    function argOn() {
+    // ARG ON/OFF
+    function argOn(){
       document.body.classList.add('arg-mode');
-      const slide = slides[current];
-      const img = slide.querySelector('img');
-      if (!img.dataset.original) img.dataset.original = img.src;
-      img.src = img.dataset.alt;
-      const div = document.createElement('div');
-      div.className = 'arg-text';
-      div.textContent = argMessages[current] || '';
-      div.id = 'arg-text';
+      const slide=slides[current];
+      const img=slide.querySelector('img');
+      if(!img.dataset.orig) img.dataset.orig=img.src;
+      img.src=img.dataset.alt;
+      const div=document.createElement('div');
+      div.className='arg-text';
+      div.textContent=argMessages[current];
+      div.id='arg-text';
       slide.appendChild(div);
     }
-    function argOff() {
+    function argOff(){
       document.body.classList.remove('arg-mode');
-      const slide = slides[current];
-      const img = slide.querySelector('img');
-      if (img.dataset.original) {
-        img.src = img.dataset.original;
-        delete img.dataset.original;
-      }
-      const txt = slide.querySelector('#arg-text');
-      if (txt) txt.remove();
+      const slide=slides[current];
+      const img=slide.querySelector('img');
+      if(img.dataset.orig){ img.src=img.dataset.orig; delete img.dataset.orig; }
+      const t=slide.querySelector('#arg-text'); if(t) t.remove();
     }
 
+    // Glitch2 clones
+    let datamoshInterval;
+    function glitch2On(){
+      const slide=slides[current];
+      const img=slide.querySelector('img');
+      datamoshInterval = setInterval(()=>{
+        const clone = img.cloneNode();
+        clone.className='datamosh-clone';
+        const size = 0.2+Math.random()*0.8;
+        clone.style.width=(img.clientWidth*size)+'px';
+        clone.style.top = Math.random()*window.innerHeight+'px';
+        clone.style.left= Math.random()*window.innerWidth+'px';
+        clone.style.transform = `rotate(${Math.random()*360}deg)`;
+        document.body.appendChild(clone);
+        setTimeout(()=>clone.remove(), 500 + Math.random()*1000);
+      }, 100);
+    }
+    function glitch2Off(){ clearInterval(datamoshInterval); document.querySelectorAll('.datamosh-clone').forEach(n=>n.remove()); }
+
     // Glitch handlers
-    function glitchOn(type) { document.body.classList.add('glitch'+type); }
-    function glitchOff(type){ document.body.classList.remove('glitch'+type); }
+    function glitch1On(){ document.body.classList.add('glitch1'); }
+    function glitch1Off(){ document.body.classList.remove('glitch1'); }
+    function glitch2OnWrap(){ glitch2On(); }
+    function glitch2OffWrap(){ glitch2Off(); }
+    function glitch3On(){ document.body.classList.add('glitch3'); }
+    function glitch3Off(){ document.body.classList.remove('glitch3'); }
 
     // Socket events
-    socket.on('command', cmd => {
-      switch(cmd) {
-        case 'arg_down': argOn(); break;
-        case 'arg_up':   argOff(); break;
-        case 'sound1':   playSound(1); break;
-        case 'sound2':   playSound(2); break;
-        case 'sound3':   playSound(3); break;
-        case 'glitch1_down': glitchOn(1); break;
-        case 'glitch1_up':   glitchOff(1); break;
-        case 'glitch2_down': glitchOn(2); break;
-        case 'glitch2_up':   glitchOff(2); break;
-        case 'glitch3_down': glitchOn(3); break;
-        case 'glitch3_up':   glitchOff(3); break;
+    socket.on('command', cmd=>{
+      switch(cmd){
+        case 'arg_down':     argOn();       break;
+        case 'arg_up':       argOff();      break;
+        case 'sound1':       playSound(1);  break;
+        case 'sound2':       playSound(2);  break;
+        case 'sound3':       playSound(3);  break;
+        case 'glitch1_down': glitch1On();   break;
+        case 'glitch1_up':   glitch1Off();  break;
+        case 'glitch2_down': glitch2OnWrap();break;
+        case 'glitch2_up':   glitch2OffWrap();break;
+        case 'glitch3_down': glitch3On();   break;
+        case 'glitch3_up':   glitch3Off();  break;
       }
     });
-    socket.on('volume', data => {
-      setVolume(data.volume);
-    });
+    socket.on('volume', data=> setVolume(data.volume));
   </script>
 </body>
 </html>
