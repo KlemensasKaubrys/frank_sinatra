@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Google Slides - Frank Sinatra</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+    #myFrame {
+      width: 100%;
+      border: none;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<iframe src="pres_start.html" id="myFrame"></iframe>
+
+<script>
+  const iframe = document.getElementById("myFrame");
+
+  iframe.onload = function () {
+    try {
+      const contentHeight = iframe.contentWindow.document.body.scrollHeight;
+      iframe.style.height = contentHeight + "px";
+    } catch (e) {
+      console.error("Unable to access iframe content height:", e);
+    }
+  };
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "f") {
+      event.preventDefault(); 
+      goFullscreenAndRedirect();
+    }
+  });
+
+  function goFullscreenAndRedirect() {
+    const elem = document.documentElement;
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { // Safari
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { // IE11
+      elem.msRequestFullscreen();
+    }
+
+    setTimeout(() => {
+        window.location.href = "/slides.html";
+    }, 500);
+  }
+</script>
+
+</body>
+</html>
