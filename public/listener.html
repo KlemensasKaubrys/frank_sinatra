@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Listener</title>
+</head>
+<body>
+  <h1>Listener Page</h1>
+  <div id="status">Waiting for commands...</div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    const statusDiv = document.getElementById('status');
+
+    socket.on('command', (cmd) => {
+      statusDiv.innerText = 'Received command: ' + cmd;
+      // TODO: perform actions based on cmd
+    });
+    socket.on('volume', (data) => {
+      statusDiv.innerText = 'Volume set to ' + data.volume + '%';
+      // TODO: adjust client-side audio levels
+    });
+  </script>
+</body>
+</html>
