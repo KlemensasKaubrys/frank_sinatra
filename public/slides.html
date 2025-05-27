@@ -2,7 +2,7 @@
 <html lang="lt">
 <head>
   <meta charset="UTF-8">
-  <title>Frank Sinatra – Creepy ARG</title>
+  <title>Frank Sinatra</title>
   <style>
     /* Base & Slide Layout */
     body, html {
@@ -128,7 +128,9 @@
     <section class="slide two">
       <h1>Ankstyvas gyvenimas</h1>
       <img src="sinatra2.jpg" data-alt="sinatra2_alt.jpg" alt="Jaunasis Frank Sinatra">
-      <p>Frank Sinatra gimė 1915 m. gruodžio 12 dieną, Hobokene, Naujajame Džersyje...</p>
+      <p>
+        Frank Sinatra gimė 1915 m. gruodžio 12 dieną Hobokene, Naujajame Džersyje, italų imigrantų šeimoje. Jo šeima gyveno kukliai, o jaunasis Frankas nuo pat vaikystės rodė ypatingą susidomėjimą muzika. Jis dažnai dainuodavo mokyklos renginiuose, vietiniuose klubuose ir radijo laidose. Jo balsas ir charizma padėjo jam greitai tapti pastebėtam muzikos pasaulyje.
+      </p>
       <div class="footer"></div>
     </section>
 
@@ -136,7 +138,9 @@
     <section class="slide three">
       <h1>Karjera ir šlovė</h1>
       <img src="sinatra3.jpg" data-alt="sinatra3_alt.gif" alt="Sinatra karjeros viršūnėje">
-      <p>Sinatra tapo viena didžiausių XX amžiaus žvaigždžių...</p>
+      <p>
+        Sinatra tapo viena didžiausių XX amžiaus žvaigždžių, atlikdamas tokius hitus kaip „My Way“, „Strangers in the Night“ ir „Fly Me to the Moon“. Jo dainos tapo klasika, o pats Sinatra – populiariosios muzikos ikona. Be muzikos, Sinatra taip pat turėjo sėkmingą aktoriaus karjerą, už vaidmenį filme „From Here to Eternity“ (1953) buvo apdovanotas „Oskaru".
+      </p>
       <div class="footer"></div>
     </section>
 
@@ -144,7 +148,9 @@
     <section class="slide four">
       <h1>Palikimas ir asmeninis gyvenimas</h1>
       <img src="sinatra4.jpg" data-alt="sinatra4_alt.jpg" alt="Vyresnysis Frank Sinatra">
-      <p>Sinatra buvo charizmatiška ir kontraversiška asmenybė...</p>
+      <p>
+        Sinatra buvo charizmatiška ir kontraversiška asmenybė. Jis buvo vedęs keturis kartus, tarp jo žmonų – garsios aktorės Ava Gardner ir Mia Farrow. Frank Sinatra mirė 1998 m. gegužės 14 dieną Kalifornijoje, palikdamas didžiulę įtaką muzikai ir populiariajai kultūrai. Jo muzika iki šių dienų populiari visame pasaulyje ir įkvepia naujas kartas atlikėjų.
+      </p>
       <div class="footer"></div>
     </section>
   </div>
@@ -160,7 +166,7 @@
     const slides = document.querySelectorAll('.slide');
     let current = 0;
 
-    // Slide nav
+    // Slide navigation
     function showSlide(n) {
       argOff();
       slides[current].classList.remove('active');
@@ -178,29 +184,78 @@
       document.documentElement.requestFullscreen().catch(()=>{});
     });
 
-    // ARG gibberish...
-    const glitchLines = [/* ... */];
+    // ARG gibberish lines
+    const glitchLines = [
+      "P̸͎͉͍͜a̷͇̩̻̣̭͖s̷͔̻̱̗ş̸͙̻̜̮̭e̵͖͈͓d̶̩ ̴͇̰i̵͍̖͔̺̞n̵̰̳͎ ̶̭̞t̷̜͖ḥ̷̞̣̭e̷̗͜ ̷̢̧̤m̴̻̰ạ̷̙̖r̷̤̞g̷͎̟͍i̶̟̻ͅn̶̤͇͎s̴͓͇",
+      "W̷̞̱̲e̵͇ ̷͓͎a̷̤r̷͖͔ḛ̵͈ ̷͎̞̠d̴̞̲o̴̤͜t̴̝t̵̫̭e̷͓͈d̶͚͚ ̵͇͔o̴͖̠u̷̳̖t̴̼̹ ̷͇͎ḇ̷͔e̷͖͇l̶̤̪o̷̼̹w̴͓̥",
+      "G̵͔̖l̴̢͎i̶͙t̵͙͙c̷̠̹h̶̬͕ ̶̻̮t̶̜h̴͖̻e̷̲ͅ ̴͎͇͖ţ̵̥e̴͖̣x̶̫t̷͚̖u̵͙̱r̸͉̟e̵͔̼",
+      "D̷̻͓r̷̻̣i̶͖̬p̶̟̣ ̶͚̳o̵͖̪u̷̳͖t̴̼̹ ̴͔͈i̴̤͕n̸̡̲ ̴̢̭t̵͙̮h̶̗̯e̸͍̭ ̴̘ͦs̴̰̠h̶̭͍a̸̧̱d̸͓̭o̶̘̭w̶̡͇s̷̺̲"
+    ];
     const baseGibber = glitchLines.join(' ') + ' ';
     const gargle = baseGibber.repeat(30);
-    const argMessages = [gargle,gargle,gargle,gargle];
+    const argMessages = [gargle, gargle, gargle, gargle];
 
     // Audio helpers
-    function setVolume(n){ [1,2,3].forEach(i=>{ const a=document.getElementById('sound'+i); a.volume=Math.min(Math.max(n/100,0),1); }); }
-    function playSound(i){ const a=document.getElementById('sound'+i); a.currentTime=0; a.play(); }
+    function setVolume(n) { [1,2,3].forEach(i => { const a = document.getElementById('sound'+i); a.volume = Math.min(Math.max(n/100,0),1); }); }
+    function playSound(i) { const a = document.getElementById('sound'+i); a.currentTime = 0; a.play(); }
 
     // ARG ON/OFF
-    function argOn(){ document.body.classList.add('arg-mode'); const slide=slides[current]; const img=slide.querySelector('img'); if(!img.dataset.orig) img.dataset.orig=img.src; img.src=img.dataset.alt; const div=document.createElement('div'); div.className='arg-text'; div.textContent=argMessages[current]; div.id='arg-text'; slide.appendChild(div); }
-    function argOff(){ document.body.classList.remove('arg-mode'); slides.forEach(slide=>{ const img=slide.querySelector('img'); if(img.dataset.orig){ img.src=img.dataset.orig; delete img.dataset.orig; }}); document.querySelectorAll('.arg-text').forEach(el=>el.remove()); }
+    function argOn() {
+      document.body.classList.add('arg-mode');
+      const slide = slides[current];
+      const img = slide.querySelector('img');
+      if (!img.dataset.orig) img.dataset.orig = img.src;
+      img.src = img.dataset.alt;
+      const div = document.createElement('div');
+      div.className = 'arg-text';
+      div.textContent = argMessages[current];
+      slide.appendChild(div);
+    }
+    function argOff() {
+      document.body.classList.remove('arg-mode');
+      slides.forEach(slide => {
+        const img = slide.querySelector('img');
+        if (img.dataset.orig) {
+          img.src = img.dataset.orig;
+          delete img.dataset.orig;
+        }
+      });
+      document.querySelectorAll('.arg-text').forEach(el => el.remove());
+    }
 
-    // Glitch handlers...
+    // Glitch2 clones
+    let datamoshInterval;
+    function glitch2On() {
+      const slide = slides[current];
+      const img = slide.querySelector('img');
+      datamoshInterval = setInterval(() => {
+        const clone = img.cloneNode();
+        clone.className = 'datamosh-clone';
+        const size = 0.2 + Math.random()*0.8;
+        clone.style.width = (img.clientWidth * size) + 'px';
+        clone.style.top = Math.random()*window.innerHeight + 'px';
+        clone.style.left = Math.random()*window.innerWidth + 'px';
+        clone.style.transform = `rotate(${Math.random()*360}deg)`;
+        document.body.appendChild(clone);
+        setTimeout(() => clone.remove(), 500 + Math.random()*1000);
+      }, 100);
+    }
+    function glitch2Off() {
+      clearInterval(datamoshInterval);
+      document.querySelectorAll('.datamosh-clone').forEach(n => n.remove());
+    }
 
     // Floyd handlers
-    function floydOn(){ document.body.style.backgroundImage="url('floyd.jpg')"; }
-    function floydOff(){ document.body.style.backgroundImage=""; }
+    function floydOn() {
+      document.body.style.backgroundImage = "url('floyd.jpg')";
+    }
+    function floydOff() {
+      document.body.style.backgroundImage = '';
+    }
 
     // Socket events
     socket.on('command', cmd => {
-      switch(cmd) {
+      switch (cmd) {
         case 'arg_down': argOn(); break;
         case 'arg_up': argOff(); break;
         case 'sound1': playSound(1); break;
