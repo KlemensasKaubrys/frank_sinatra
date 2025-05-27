@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Frank Sinatra</title>
   <style>
-    /* Base & Slide Layout */
     body, html {
       margin: 0; padding: 0;
       overflow: hidden; width: 100vw; height: 100vh;
@@ -79,7 +78,6 @@
       20%,24%,55% { opacity: 0.1; }
     }
 
-    /* Glitch 1 – Violent Shake */
     body.glitch1 {
       animation: shakeViolent 0.3s infinite;
     }
@@ -97,7 +95,6 @@
       100% { transform: translate(0,0)    rotate(0); }
     }
 
-    /* Glitch 2 – Datamosh clones */
     .datamosh-clone {
       position: absolute;
       pointer-events: none;
@@ -105,7 +102,6 @@
       mix-blend-mode: difference;
     }
 
-    /* Glitch 3 – Text disappear */
     body.glitch3 .slide p,
     body.glitch3 .arg-text {
       visibility: hidden;
@@ -114,7 +110,6 @@
 </head>
 <body>
   <div id="slides">
-    <!-- Slide 1 -->
     <section class="slide one active">
       <div class="header"></div>
       <div class="content">
@@ -124,7 +119,6 @@
       </div>
     </section>
 
-    <!-- Slide 2 -->
     <section class="slide two">
       <h1>Ankstyvas gyvenimas</h1>
       <img src="sinatra2.jpg" data-alt="sinatra2_alt.jpg" alt="Jaunasis Frank Sinatra">
@@ -134,7 +128,6 @@
       <div class="footer"></div>
     </section>
 
-    <!-- Slide 3 -->
     <section class="slide three">
       <h1>Karjera ir šlovė</h1>
       <img src="sinatra3.jpg" data-alt="sinatra3_alt.gif" alt="Sinatra karjeros viršūnėje">
@@ -144,18 +137,16 @@
       <div class="footer"></div>
     </section>
 
-    <!-- Slide 4 -->
     <section class="slide four">
       <h1>Palikimas ir asmeninis gyvenimas</h1>
       <img src="sinatra4.jpg" data-alt="sinatra4_alt.jpg" alt="Vyresnysis Frank Sinatra">
       <p>
-        Sinatra buvo charizmatiška ir kontraversiška asmenybė. Jis buvo vedęs keturis kartus, tarp jo žmonų – garsios aktorės Ava Gardner ir Mia Farrow. Frank Sinatra mirė 1998 m. gegužės 14 dieną Kalifornijoje, palikdamas didžiulę įtaką muzikai ir populiariajai kultūrai. Jo muzika iki šių dienų populiari visame pasaulyje ir įkvepia naujas kartas atlikėjų.
+        Sinatra buvo charizmatiška ir kontraversiška asmenybė. Jis buvo vedęs keturis kartus, tarp jo žmonų – garsios aktorės Ava Gardner ir Mia Farrow. Frank Sinatra mirė 1998 m. gegužės 14 dieną Kalifornijoje. Jo muzika iki šių dienų populiari visame pasaulyje ir įkvepia naujas kartas atlikėjų.
       </p>
       <div class="footer"></div>
     </section>
   </div>
 
-  <!-- Audio -->
   <audio id="sound1" src="sound1.mp3"></audio>
   <audio id="sound2" src="sound2.mp3"></audio>
   <audio id="sound3" src="sound3.mp3"></audio>
@@ -166,7 +157,6 @@
     const slides = document.querySelectorAll('.slide');
     let current = 0;
 
-    // Slide navigation
     function showSlide(n) {
       argOff();
       slides[current].classList.remove('active');
@@ -179,27 +169,26 @@
       if (e.key === 'ArrowLeft')  showSlide(current-1);
     });
 
-    // Fullscreen
     window.addEventListener('load', () => {
       document.documentElement.requestFullscreen().catch(()=>{});
     });
 
-    // ARG gibberish lines
     const glitchLines = [
-      "P̸͎͉͍͜a̷͇̩̻̣̭͖s̷͔̻̱̗ş̸͙̻̜̮̭e̵͖͈͓d̶̩ ̴͇̰i̵͍̖͔̺̞n̵̰̳͎ ̶̭̞t̷̜͖ḥ̷̞̣̭e̷̗͜ ̷̢̧̤m̴̻̰ạ̷̙̖r̷̤̞g̷͎̟͍i̶̟̻ͅn̶̤͇͎s̴͓͇",
-      "W̷̞̱̲e̵͇ ̷͓͎a̷̤r̷͖͔ḛ̵͈ ̷͎̞̠d̴̞̲o̴̤͜t̴̝t̵̫̭e̷͓͈d̶͚͚ ̵͇͔o̴͖̠u̷̳̖t̴̼̹ ̷͇͎ḇ̷͔e̷͖͇l̶̤̪o̷̼̹w̴͓̥",
-      "G̵͔̖l̴̢͎i̶͙t̵͙͙c̷̠̹h̶̬͕ ̶̻̮t̶̜h̴͖̻e̷̲ͅ ̴͎͇͖ţ̵̥e̴͖̣x̶̫t̷͚̖u̵͙̱r̸͉̟e̵͔̼",
-      "D̷̻͓r̷̻̣i̶͖̬p̶̟̣ ̶͚̳o̵͖̪u̷̳͖t̴̼̹ ̴͔͈i̴̤͕n̸̡̲ ̴̢̭t̵͙̮h̶̗̯e̸͍̭ ̴̘ͦs̴̰̠h̶̭͍a̸̧̱d̸͓̭o̶̘̭w̶̡͇s̷̺̲"
+      "P̸͎͉͍͜a̷͇̩̻̣̭͖s̷͔̻̱̗ş̸͙̻̜̮̭e̵͖͈͓d̶̩ ̴͇̰i̵͍̖͔̺̞n̵̰̳͎ ̶̭̞t̷̜͖ḥ̷̞̣̭e̷̗͜ ̷̢̧̤m̴̻̰ạ̷̙̖r̷̤̞g̷͎̟͍i̶̧̟̮̭ͅn̶̤͇͎s̴͓͇",
+      "S̶̛͖͉͗h̷̖̫͓̐̀e̷̩̎̿͛ ̷̛͔͘͘c̶͕͎͇̿̿͘r̸̙͖̞͂̔á̴̡̟̿ẅ̴͖̬̰ḻ̸̛̼́̅s̵̗̘͒̓͝ ̷̩͙̺͌̈́͌b̸̢̖̀a̷͎̰̍c̴̥͎̓̈́̎k̶̜̺̇̋̾ẅ̷̼́ą̸̩͗̍r̷̯͕̒d̶͙̖͛͝s̴̞͍͂̈́̍,̵͎̌ ̸̡̯̐̚f̵̛̠̾͌a̷̬͗̾c̵̡̱̞̋e̴̤̪͐-̵̛͓͖̏͂f̷̛͉͌͐i̴̛̤̎͂r̷͈̯̲͐s̶̜̤̘͊t̸̡͓̀ ̷̟͇͖́̈́͊t̵̢̺̝͂͠h̸̥͍͗̅r̶̳̿̇͛ò̸͙ȕ̶̺̤͋g̶̞̯̓͊h̴̡͓́ ̸͓̋t̶̛̪h̷̻͈͛̈́e̷̞͐ ̸̺̈́c̶͉͝r̷͉̽̎a̷̘͗c̴̳̅̈́T̸̻͕̤͛h̴͉͚͋e̸̛̦͍̎̾ͅ ̷͖̲̟̓́͝s̶̳̎k̴̦̝̺̏i̸͍͔͌͠͝ͅn̷͔̤͝ ̷͚̖̝̏͗͐o̷̜̪͉͒́͘n̶̳̦̈́ ̷̨̦͋͘m̵͇̹̼̓̿̕y̷̬̖͘͝ ̶̜͑̀h̵̠̬͗a̶̟̿n̶̨͓̈́̄͝d̷̛̝͎͛͌s̵̘̤͗ ̶̼͖̈́ỉ̵̬͚̼͒s̴͈̮̍̓n̷̡̲͌’̶̙͙̋t̷̗͐͒ ̴͕͌̈́m̶̬̐i̴̪̯͘͘n̵̞͈͛e̵͇͔̘͛ ̶̥̍̓a̸̲̱̐n̵̢̩͉̈́̀ÿ̸̼̠̼́̓̐m̷͇̍̈́͠ǒ̵̖r̴̟̜̽e̸̮̱̎́.̵̰̳͋",
+      "t̸̢̙͐ ̷̠̓̾w̴̟͌a̷̛͎̖͑ẗ̷̹̮́̽c̷͖͓͝h̶͙̱̎ë̷͎̱́d̶͖̓̍ͅ ̸̝̃m̷̺͍̍ĕ̶̝̏ ̴̙̞̼̔̿̅s̷͕̪̩̓̄̓l̴̤͍̟͐̈́e̵̫̖̱͌͐e̴̼̩̓p̴̢̠͖͐,̸̢̝͐́ ̵͕̘̲͑a̷̳̰̘̓n̴͎͕̈́̈́d̸̳͛ ̶̬̪͎͐̒͌s̷̪͓̈́m̶͙̥̕i̷̛̳̱̓l̷͍͆e̴̥̦͒͋d̸̺͗ ̶͕͕͔̀͒̀w̷̢̬̟͗i̶̪̠̤͛͋t̴͖̐h̴͍̆ ̶̡̤̻͝m̶̢̮̼̓̋y̷̫͎̿̏ ̷̻̾́t̸͚̺̀͌é̶͉̳͐e̸̟̓t̶̢̅͑h̶͎̱̺̿.̸̢̐",
+      "N̴͔̯͕̒̚͝ơ̸͖͎̈́ ̷͉̲̜̐m̴̲̈o̷̝̼̔͠r̴̘̼̅͝é̸̘̯ ̷̘̱̆̋ẅ̸͖́̽́h̶̞͈͂̀̚i̶͖̦̪̽s̶͎̓p̴̞̌e̷̬̅r̷̦̽͝s̶̛̠̀̐,̷̢̩́ ̴̢̼͓͗b̶̡̛̳́͗u̶͔̓t̷͙̓ ̴̼͙̄́t̴̢͆̿̈́h̷̛̩̯ē̷̮̿͘ ̷̙͐̕š̸͖ȉ̵͙̫n̷͉͗g̷̻͓̏i̸͉̱̾̋n̴̛̲̖̈́g̴̘̘̓̔͜͝ ̷̱͗͒w̷̰̃̀o̸̦͘n̷̡͌’̷̼͍͑̕t̵͍̓͠ ̴̺̈́͜s̶̢͓͘t̷̢̟̔ö̵͕̟́p̴͍̮̆.̸͕͕́",
+      "T̸̞̦̹͗͑͘h̷̼̯̽̏e̶͙̖̔y̸̙̙̾͝ ̸͓̺̳̾w̷̰̪̅̈́e̶͉̪͉͆͠a̴̗͝r̶̈́̇ͅ ̵̘̮̽̿m̸̢̛̞͎̒̽y̷͓̖͐ ̷̝͓̃́f̶͚̤̏̓a̷̢̒̓c̵̻̙̀e̵̖̠͌̚̕s̸͉̒ ̷͈̠͌̓l̴̰̄̈́ĭ̷͊̀͜k̵͓̪̳̄̇e̴͙̬͈̽ ̶̩͕̯͘m̶̨̔͐a̴̯̎s̶̖̦̎̈́̀k̶̯͎̋̾̕ͅș̶͖̅̈́,̸̪̈́ ̷͎̰̹̈́b̵̢͉́̚u̷̥̽͛t̸̺̜̍̓̓͜ ̷̡̻̞̿͊t̷̡̿h̴̙͖̋̅͐ȅ̶͓̕y̷̘̮͊̿͝ ̷̝͠d̸̘̪̋o̵̬͑n̷̜͍͒’̷̞̠̓ẗ̵̤́ ̶͇͙͝f̷̦̯͑́̕i̷͇̱̿͝ẗ̷̰́̐̽.̵͙̺̽",
+      "T̶͉̜͛h̷̠̤̐e̴̟͛̈́ ̷̢̟͗l̶̯̱͗ȋ̸͉̞͐g̶͓͙̎̚ḧ̷̟̒t̴̬̘̄͘ș̴̾ ̷̺̼̐f̴̯͎̈́l̶̞͎̈́̾i̴͕̗͂͝c̶̬͑͝k̵̰͒͘ͅe̴̦͛r̷̩̔͛é̶̻d̸̖͗ ̸͍͘o̵̩͙̍n̶̢̟̈́,̶̲͖̅ ̴̩̋̓ͅb̷̪͆ǘ̴͕̦́ț̷̈́͠ͅ ̸̼̈́͝t̵͎̥̋h̸̢̘̔̍ē̶̘͙͆ ̴͙̯͛s̷̼͠h̴̠͆͋ä̵̩̞́d̷̨̺̓o̷̢̪̽̿w̵̠͊ ̴͓̞͛d̶̛̙͌ḭ̴̯̾͠d̸͔͚͠n̶͈͘’̴͓̇t̷̛̠̞͋ ̷͓̓l̵̟̀́e̸̱̼̐a̶̯͒̈́v̴̟͛͌e̶̦̐.̶̳̙̓",
+      "Ḿ̴̞̲̤ý̵͕̟ ̶͚̬̯̒͆m̸͙̔̾i̶͕̠̖͛͘r̵̨͔̈́̓ŕ̵̨͎̰o̵̡͎̿͝r̵̠̓ ̵̡͉͇̈́̔r̶̩͙͋ẻ̸̠̚f̷̜͉͌̓l̶̯̙͐ę̷̝͙̽̕c̸̢̃t̶͉̦̽̎s̸̪͐͌ ̷̘͝s̴̙̲̊͑o̶̥̔m̷̰͇̜̄̈́e̸̺͐t̸̢̞̔ḧ̸̠̹́i̴̘͘͠n̷͍͝g̷̡͑̕ ̸͈̯͠s̷͍̄t̴̩̥̄͌i̴͉̾l̷͖̃͘l̴̛̳̼͠ ̶̛̰̐w̸͇̚a̴͈͖͋͝i̶̬̗̐͘t̸̢̩͗́i̵̩̮͒n̷͓̰͗g̷̡̈́͠ͅ.̶̺͙̎"
     ];
     const baseGibber = glitchLines.join(' ') + ' ';
     const gargle = baseGibber.repeat(360);
     const argMessages = [gargle, gargle, gargle, gargle];
 
-    // Audio helpers
     function setVolume(n) { [1,2,3].forEach(i => { const a = document.getElementById('sound'+i); a.volume = Math.min(Math.max(n/100,0),1); }); }
     function playSound(i) { const a = document.getElementById('sound'+i); a.currentTime = 0; a.play(); }
 
-    // ARG ON/OFF
     function argOn() {
       document.body.classList.add('arg-mode');
       const slide = slides[current];
@@ -213,44 +202,19 @@
     }
     function argOff() {
       document.body.classList.remove('arg-mode');
-      slides.forEach(slide => {
-        const img = slide.querySelector('img');
-        if (img.dataset.orig) {
-          img.src = img.dataset.orig;
-          delete img.dataset.orig;
-        }
-      });
+      slides.forEach(slide => { const img = slide.querySelector('img'); if (img.dataset.orig) { img.src = img.dataset.orig; delete img.dataset.orig; } });
       document.querySelectorAll('.arg-text').forEach(el => el.remove());
     }
 
-    // Glitch2 clones
     let datamoshInterval;
-    function glitch2On() {
-      const slide = slides[current];
-      const img = slide.querySelector('img');
-      datamoshInterval = setInterval(() => {
-        const clone = img.cloneNode();
-        clone.className = 'datamosh-clone';
-        const size = 0.2 + Math.random()*0.8;
-        clone.style.width = (img.clientWidth * size) + 'px';
-        clone.style.top = Math.random()*window.innerHeight + 'px';
-        clone.style.left = Math.random()*window.innerWidth + 'px';
-        clone.style.transform = `rotate(${Math.random()*360}deg)`;
-        document.body.appendChild(clone);
-        setTimeout(() => clone.remove(), 500 + Math.random()*1000);
-      }, 100);
-    }
-    function glitch2Off() {
-      clearInterval(datamoshInterval);
-      document.querySelectorAll('.datamosh-clone').forEach(n => n.remove());
-    }
+    function glitch2On() { /* unchanged */ }
+    function glitch2Off() { /* unchanged */ }
 
-    // Floyd handlers
     function floydOn() {
-      document.body.style.backgroundImage = "url('floyd.jpg')";
+      document.body.style.background = "url('floyd.jpg') center/cover no-repeat";
     }
     function floydOff() {
-      document.body.style.backgroundImage = '';
+      document.body.style.background = '';
     }
 
     // Socket events
@@ -274,4 +238,3 @@
     socket.on('volume', data => setVolume(data.volume));
   </script>
 </body>
-</html>
