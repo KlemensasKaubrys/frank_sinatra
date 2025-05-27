@@ -244,7 +244,15 @@
     }
 
     function floydOff() {
-      location.reload();
+      const originalTexts = {
+        slide2text: `Frank Sinatra gimė 1915 m. gruodžio 12 dieną Hobokene, Naujajame Džersyje, italų imigrantų šeimoje. Jo šeima gyveno kukliai, o jaunasis Frankas nuo pat vaikystės rodė ypatingą susidomėjimą muzika. Jis dažnai dainuodavo mokyklos renginiuose, vietiniuose klubuose ir radijo laidose. Jo balsas ir charizma padėjo jam greitai tapti pastebėtam muzikos pasaulyje.`,
+        slide3text: `Sinatra tapo viena didžiausių XX amžiaus žvaigžžu, atlikdamas tokius hitus kaip „My Way“, „Strangers in the Night“ ir „Fly Me to the Moon“. Jo dainos tapo klasika, o pats Sinatra – populiariosios muzikos ikona. Be muzikos, Sinatra taip pat turėjo sėkmingą aktoriaus karjerą, už vaidmenį filme „From Here to Eternity“ (1953) buvo apdovanotas „Oskaru".`,
+        slide4text: `Sinatra buvo charizmatiška ir kontraversiška asmenybė. Jis buvo vedės keturis kartus, tarp jo žmonų – garsios aktorės Ava Gardner ir Mia Farrow. Frank Sinatra mirė 1998 m. gegužės 14 dieną Kalifornijoje. Jo muzika iki šių dienų populiari visame pasaulyje ir įkvepia naujas kartas atlikėjų.`
+      };
+      Object.keys(originalTexts).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = originalTexts[id];
+      });
     }
 
     socket.on('command', cmd => {
