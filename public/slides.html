@@ -2,7 +2,7 @@
 <html lang="lt">
 <head>
   <meta charset="UTF-8">
-  <title>Frank Sinatra</title>
+  <title>Frank Sinatra – Creepy ARG</title>
   <style>
     /* Base & Slide Layout */
     body, html {
@@ -10,6 +10,8 @@
       overflow: hidden; width: 100vw; height: 100vh;
       font-family: 'Georgia', serif;
       background-color: #000; color: #fff;
+      background-size: cover;
+      background-position: center;
     }
     #slides { position: relative; width: 100%; height: 100%; }
     .slide {
@@ -118,49 +120,31 @@
       <div class="content">
         <h1>Frank Sinatra</h1>
         <p>Klemensas Kaubrys 10B</p>
-        <img
-          src="sinatra1.jpg"
-          data-alt="sinatra1_alt.jpg"
-          alt="Frank Sinatra">
+        <img src="sinatra1.jpg" data-alt="sinatra1_alt.jpg" alt="Frank Sinatra">
       </div>
     </section>
 
     <!-- Slide 2 -->
     <section class="slide two">
       <h1>Ankstyvas gyvenimas</h1>
-      <img
-        src="sinatra2.jpg"
-        data-alt="sinatra2_alt.jpg"
-        alt="Jaunasis Frank Sinatra">
-      <p>
-        Frank Sinatra gimė 1915 m. gruodžio 12 dieną, Hobokene, Naujajame Džersyje, italų imigrantų šeimoje. Jo šeima gyveno kukliai, o jaunasis Frankas nuo pat vaikystės rodė ypatingą susidomėjimą muzika. Jis dažnai dainuodavo mokyklos renginiuose, vietiniuose klubuose ir radijo laidose. Jo balsas ir charizma padėjo jam greitai tapti pastebėtam muzikos pasaulyje.
-      </p>
+      <img src="sinatra2.jpg" data-alt="sinatra2_alt.jpg" alt="Jaunasis Frank Sinatra">
+      <p>Frank Sinatra gimė 1915 m. gruodžio 12 dieną, Hobokene, Naujajame Džersyje...</p>
       <div class="footer"></div>
     </section>
 
     <!-- Slide 3 -->
     <section class="slide three">
       <h1>Karjera ir šlovė</h1>
-      <img
-        src="sinatra3.jpg"
-        data-alt="sinatra3_alt.gif"
-        alt="Sinatra karjeros viršūnėje">
-      <p>
-        Sinatra tapo viena didžiausių XX amžiaus žvaigždžių, atlikdamas tokius hitus kaip „My Way“, „Strangers in the Night“ ir „Fly Me to the Moon“. Jo dainos tapo klasika, o pats Sinatra – populiariosios muzikos ikona. Be muzikos, Sinatra taip pat turėjo sėkmingą aktoriaus karjerą, už vaidmenį filme „From Here to Eternity“ (1953) buvo apdovanotas „Oskaru“.      
-      </p>
+      <img src="sinatra3.jpg" data-alt="sinatra3_alt.gif" alt="Sinatra karjeros viršūnėje">
+      <p>Sinatra tapo viena didžiausių XX amžiaus žvaigždžių...</p>
       <div class="footer"></div>
     </section>
 
     <!-- Slide 4 -->
     <section class="slide four">
       <h1>Palikimas ir asmeninis gyvenimas</h1>
-      <img
-        src="sinatra4.jpg"
-        data-alt="sinatra4_alt.jpg"
-        alt="Vyresnysis Frank Sinatra">
-      <p>
-        Sinatra buvo charizmatiška ir kontraversiška asmenybė. Jis buvo vedęs keturis kartus, tarp jo žmonų – garsios aktorės Ava Gardner ir Mia Farrow. Frank Sinatra mirė 1998 m. gegužės 14 dieną Kalifornijoje, palikdamas didžiulę įtaką muzikai ir populiariajai kultūrai. Jo muzika iki šių dienų populiari visame pasaulyje ir įkvepia naujas kartas atlikėjų.      
-      </p>
+      <img src="sinatra4.jpg" data-alt="sinatra4_alt.jpg" alt="Vyresnysis Frank Sinatra">
+      <p>Sinatra buvo charizmatiška ir kontraversiška asmenybė...</p>
       <div class="footer"></div>
     </section>
   </div>
@@ -178,123 +162,61 @@
 
     // Slide nav
     function showSlide(n) {
-      // Before hiding the old slide, clear any ARG overlays
       argOff();
-
       slides[current].classList.remove('active');
       current = (n + slides.length) % slides.length;
       slides[current].classList.add('active');
-
-      // If ARG-mode is still on, re-apply overlay on the new slide
-      if (document.body.classList.contains('arg-mode')) {
-        argOn();
-      }
+      if (document.body.classList.contains('arg-mode')) argOn();
     }
     document.addEventListener('keydown', e => {
-      if (e.key==='ArrowRight') showSlide(current+1);
-      if (e.key==='ArrowLeft')  showSlide(current-1);
+      if (e.key === 'ArrowRight') showSlide(current+1);
+      if (e.key === 'ArrowLeft')  showSlide(current-1);
     });
 
     // Fullscreen
     window.addEventListener('load', () => {
-      const el=document.documentElement;
-      if(el.requestFullscreen) el.requestFullscreen().catch(()=>{});
+      document.documentElement.requestFullscreen().catch(()=>{});
     });
 
-    // ARG gibberish lines
-    const glitchLines = [
-      "P̸͎͉͍͜a̷͇̩̻̣̭͖s̷͔̻̱̗ş̸͙̻̜̮̭e̵͖͈͓d̶̩ ̴͇̰i̵͍̖͔̺̞n̵̰̳͎ ̶̭̞t̷̜͖ḥ̷̞̣̭e̷̗͜ ̷̢̧̤m̴̻̰ạ̷̙̖r̷̤̞g̷͎̟͍i̶̟̻ͅn̶̤͇͎s̴͓͇",
-      "W̷̞̱̲e̵͇ ̷͓͎a̷̤r̷͖͔ḛ̵͈ ̷͎̞̠d̴̞̲o̴̤͜t̴̝t̵̫̭e̷͓͈d̶͚͚ ̵͇͔o̴͖̠u̷̳̖t̴̼̹ ̷͇͎ḇ̷͔e̷͖͇l̶̤̪o̷̼̹w̴͓̥",
-      "G̵͔̖l̴̢͎i̶͙t̵͙͙c̷̠̹h̶̬͕ ̶̻̮t̶̜h̴͖̻e̷̲ͅ ̴͎͇͖ţ̵̥e̴͖̣x̶̫t̷͚̖u̵͙̱r̸͉̟e̵͔̼",
-      "D̷̻͓r̷̻̣i̶͖̬p̶̟̣ ̶͚̳o̵͖̪u̷̳͖t̴̼̹ ̴͔͈i̴̤͕n̸̡̲ ̴̢̭t̵͙̮h̶̗̯e̸͍̭ ̴̘ͦs̴̰̠h̶̭͍a̸̧̱d̸͓̭o̶̘̭w̶̡͇s̷̺̲"
-    ];
+    // ARG gibberish...
+    const glitchLines = [/* ... */];
     const baseGibber = glitchLines.join(' ') + ' ';
-    const gargle = baseGibber.repeat(360);
-    const argMessages = [gargle, gargle, gargle, gargle];
+    const gargle = baseGibber.repeat(30);
+    const argMessages = [gargle,gargle,gargle,gargle];
 
     // Audio helpers
-    function setVolume(n){
-      [1,2,3].forEach(i=>{
-        const a=document.getElementById('sound'+i);
-        a.volume=Math.min(Math.max(n/100,0),1);
-      });
-    }
-    function playSound(i){
-      const a=document.getElementById('sound'+i);
-      a.currentTime=0; a.play();
-    }
+    function setVolume(n){ [1,2,3].forEach(i=>{ const a=document.getElementById('sound'+i); a.volume=Math.min(Math.max(n/100,0),1); }); }
+    function playSound(i){ const a=document.getElementById('sound'+i); a.currentTime=0; a.play(); }
 
     // ARG ON/OFF
-    function argOn(){
-      document.body.classList.add('arg-mode');
-      const slide=slides[current];
-      const img=slide.querySelector('img');
-      if(!img.dataset.orig) img.dataset.orig=img.src;
-      img.src=img.dataset.alt;
-      const div=document.createElement('div');
-      div.className='arg-text';
-      div.textContent=argMessages[current];
-      div.id='arg-text';
-      slide.appendChild(div);
-    }
-    function argOff(){
-      document.body.classList.remove('arg-mode');
-      // Restore every slide image
-      slides.forEach(slide => {
-        const img = slide.querySelector('img');
-        if (img.dataset.orig) {
-          img.src = img.dataset.orig;
-          delete img.dataset.orig;
-        }
-      });
-      // Remove all ARG text overlays
-      document.querySelectorAll('.arg-text').forEach(el => el.remove());
-    }
+    function argOn(){ document.body.classList.add('arg-mode'); const slide=slides[current]; const img=slide.querySelector('img'); if(!img.dataset.orig) img.dataset.orig=img.src; img.src=img.dataset.alt; const div=document.createElement('div'); div.className='arg-text'; div.textContent=argMessages[current]; div.id='arg-text'; slide.appendChild(div); }
+    function argOff(){ document.body.classList.remove('arg-mode'); slides.forEach(slide=>{ const img=slide.querySelector('img'); if(img.dataset.orig){ img.src=img.dataset.orig; delete img.dataset.orig; }}); document.querySelectorAll('.arg-text').forEach(el=>el.remove()); }
 
-    // Glitch2 clones
-    let datamoshInterval;
-    function glitch2On(){
-      const slide=slides[current];
-      const img=slide.querySelector('img');
-      datamoshInterval = setInterval(()=>{
-        const clone = img.cloneNode();
-        clone.className='datamosh-clone';
-        const size = 0.2+Math.random()*0.8;
-        clone.style.width=(img.clientWidth*size)+'px';
-        clone.style.top = Math.random()*window.innerHeight+'px';
-        clone.style.left= Math.random()*window.innerWidth+'px';
-        clone.style.transform = `rotate(${Math.random()*360}deg)`;
-        document.body.appendChild(clone);
-        setTimeout(()=>clone.remove(), 500 + Math.random()*1000);
-      }, 100);
-    }
-    function glitch2Off(){ clearInterval(datamoshInterval); document.querySelectorAll('.datamosh-clone').forEach(n=>n.remove()); }
+    // Glitch handlers...
 
-    // Glitch handlers
-    function glitch1On(){ document.body.classList.add('glitch1'); }
-    function glitch1Off(){ document.body.classList.remove('glitch1'); }
-    function glitch2OnWrap(){ glitch2On(); }
-    function glitch2OffWrap(){ glitch2Off(); }
-    function glitch3On(){ document.body.classList.add('glitch3'); }
-    function glitch3Off(){ document.body.classList.remove('glitch3'); }
+    // Floyd handlers
+    function floydOn(){ document.body.style.backgroundImage="url('floyd.jpg')"; }
+    function floydOff(){ document.body.style.backgroundImage=""; }
 
     // Socket events
-    socket.on('command', cmd=>{
-      switch(cmd){
-        case 'arg_down':     argOn();       break;
-        case 'arg_up':       argOff();      break;
-        case 'sound1':       playSound(1);  break;
-        case 'sound2':       playSound(2);  break;
-        case 'sound3':       playSound(3);  break;
-        case 'glitch1_down': glitch1On();   break;
-        case 'glitch1_up':   glitch1Off();  break;
-        case 'glitch2_down': glitch2OnWrap();break;
-        case 'glitch2_up':   glitch2OffWrap();break;
-        case 'glitch3_down': glitch3On();   break;
-        case 'glitch3_up':   glitch3Off();  break;
+    socket.on('command', cmd => {
+      switch(cmd) {
+        case 'arg_down': argOn(); break;
+        case 'arg_up': argOff(); break;
+        case 'sound1': playSound(1); break;
+        case 'sound2': playSound(2); break;
+        case 'sound3': playSound(3); break;
+        case 'glitch1_down': document.body.classList.add('glitch1'); break;
+        case 'glitch1_up': document.body.classList.remove('glitch1'); break;
+        case 'glitch2_down': glitch2On(); break;
+        case 'glitch2_up': glitch2Off(); break;
+        case 'glitch3_down': document.body.classList.add('glitch3'); break;
+        case 'glitch3_up': document.body.classList.remove('glitch3'); break;
+        case 'floyd_on': floydOn(); break;
+        case 'floyd_off': floydOff(); break;
       }
     });
-    socket.on('volume', data=> setVolume(data.volume));
+    socket.on('volume', data => setVolume(data.volume));
   </script>
 </body>
 </html>
