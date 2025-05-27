@@ -211,11 +211,41 @@
     function glitch2Off() { /* unchanged */ }
 
     function floydOn() {
-      document.body.style.background = "url('floyd.jpg') center/cover no-repeat";
+      const messages = {
+        1: "19   12",
+        2: "i am watching you",
+        3: "i am here"
+      };
+
+      slides.forEach((slide, idx) => {
+        const p = slide.querySelector('p');
+        if (!p) return;
+        const original = p.textContent;
+        p.dataset.originalText = original;
+
+        const msg = messages[idx];
+        if (!msg) return;
+
+        const visibleSet = new Set(msg.toLowerCase().replace(/[^a-z0-9]/g, '').split(''));
+        const transformed = [...original].map(c => {
+          if (visibleSet.has(c.toLowerCase())) return c;
+          if (c === ' ' || c === '\n') return c;
+          return '█';
+        }).join('');
+        p.textContent = transformed;
+      });
     }
+
     function floydOff() {
-      document.body.style.background = '';
+      slides.forEach(slide => {
+        const p = slide.querySelector('p');
+        if (p && p.dataset.originalText) {
+          p.textContent = p.dataset.originalText;
+          delete p.dataset.originalText;
+        }
+      });
     }
+
 
     // Socket events
     socket.on('command', cmd => {
