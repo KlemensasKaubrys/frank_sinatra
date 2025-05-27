@@ -20,7 +20,6 @@
     }
     .slide.active { display: block; }
 
-    /* Slide 1 */
     .slide.one {
       background-color: black; color: white;
     }
@@ -35,7 +34,6 @@
       width: 35%; max-width: 450px; border-radius: 10px;
     }
 
-    /* Slides 2–4 */
     .slide.two, .slide.three, .slide.four {
       background-color: #f9f4ea; color: black;
       padding: 40px; position: relative;
@@ -59,7 +57,10 @@
       bottom: 0; left: 0; width: 100%;
     }
 
-    /* ARG Mode */
+    .hidden-char {
+      opacity: 0.05;
+    }
+
     .arg-mode {
       filter: invert(1) hue-rotate(180deg);
     }
@@ -122,7 +123,7 @@
     <section class="slide two">
       <h1>Ankstyvas gyvenimas</h1>
       <img src="sinatra2.jpg" data-alt="sinatra2_alt.jpg" alt="Jaunasis Frank Sinatra">
-      <p>
+      <p id="slide2text">
         Frank Sinatra gimė 1915 m. gruodžio 12 dieną Hobokene, Naujajame Džersyje, italų imigrantų šeimoje. Jo šeima gyveno kukliai, o jaunasis Frankas nuo pat vaikystės rodė ypatingą susidomėjimą muzika. Jis dažnai dainuodavo mokyklos renginiuose, vietiniuose klubuose ir radijo laidose. Jo balsas ir charizma padėjo jam greitai tapti pastebėtam muzikos pasaulyje.
       </p>
       <div class="footer"></div>
@@ -131,8 +132,8 @@
     <section class="slide three">
       <h1>Karjera ir šlovė</h1>
       <img src="sinatra3.jpg" data-alt="sinatra3_alt.gif" alt="Sinatra karjeros viršūnėje">
-      <p>
-        Sinatra tapo viena didžiausių XX amžiaus žvaigždžių, atlikdamas tokius hitus kaip „My Way“, „Strangers in the Night“ ir „Fly Me to the Moon“. Jo dainos tapo klasika, o pats Sinatra – populiariosios muzikos ikona. Be muzikos, Sinatra taip pat turėjo sėkmingą aktoriaus karjerą, už vaidmenį filme „From Here to Eternity“ (1953) buvo apdovanotas „Oskaru".
+      <p id="slide3text">
+        Sinatra tapo viena didžiausių XX amžiaus žvaigž\džu, atlikdamas tokius hitus kaip „My Way“, „Strangers in the Night“ ir „Fly Me to the Moon“. Jo dainos tapo klasika, o pats Sinatra – populiariosios muzikos ikona. Be muzikos, Sinatra taip pat turėjo sėkmingą aktoriaus karjerą, už vaidmenį filme „From Here to Eternity“ (1953) buvo apdovanotas „Oskaru".
       </p>
       <div class="footer"></div>
     </section>
@@ -140,8 +141,8 @@
     <section class="slide four">
       <h1>Palikimas ir asmeninis gyvenimas</h1>
       <img src="sinatra4.jpg" data-alt="sinatra4_alt.jpg" alt="Vyresnysis Frank Sinatra">
-      <p>
-        Sinatra buvo charizmatiška ir kontraversiška asmenybė. Jis buvo vedęs keturis kartus, tarp jo žmonų – garsios aktorės Ava Gardner ir Mia Farrow. Frank Sinatra mirė 1998 m. gegužės 14 dieną Kalifornijoje. Jo muzika iki šių dienų populiari visame pasaulyje ir įkvepia naujas kartas atlikėjų.
+      <p id="slide4text">
+        Sinatra buvo charizmatiška ir kontraversiška asmenybė. Jis buvo vedės keturis kartus, tarp jo žmonų – garsios aktorės Ava Gardner ir Mia Farrow. Frank Sinatra mirė 1998 m. gegužės 14 dieną Kalifornijoje. Jo muzika iki šių dienų populiari visame pasaulyje ir įkvepia naujas kartas atlikėjų.
       </p>
       <div class="footer"></div>
     </section>
@@ -173,21 +174,30 @@
       document.documentElement.requestFullscreen().catch(()=>{});
     });
 
+    function setVolume(n) {
+      [1,2,3].forEach(i => {
+        const a = document.getElementById('sound'+i);
+        a.volume = Math.min(Math.max(n/100,0),1);
+      });
+    }
+    function playSound(i) {
+      const a = document.getElementById('sound'+i);
+      a.currentTime = 0;
+      a.play();
+    }
+
     const glitchLines = [
-      "P̸͎͉͍͜a̷͇̩̻̣̭͖s̷͔̻̱̗ş̸͙̻̜̮̭e̵͖͈͓d̶̩ ̴͇̰i̵͍̖͔̺̞n̵̰̳͎ ̶̭̞t̷̜͖ḥ̷̞̣̭e̷̗͜ ̷̢̧̤m̴̻̰ạ̷̙̖r̷̤̞g̷͎̟͍i̶̧̟̮̭ͅn̶̤͇͎s̴͓͇",
-      "S̶̛͖͉͗h̷̖̫͓̐̀e̷̩̎̿͛ ̷̛͔͘͘c̶͕͎͇̿̿͘r̸̙͖̞͂̔á̴̡̟̿ẅ̴͖̬̰ḻ̸̛̼́̅s̵̗̘͒̓͝ ̷̩͙̺͌̈́͌b̸̢̖̀a̷͎̰̍c̴̥͎̓̈́̎k̶̜̺̇̋̾ẅ̷̼́ą̸̩͗̍r̷̯͕̒d̶͙̖͛͝s̴̞͍͂̈́̍,̵͎̌ ̸̡̯̐̚f̵̛̠̾͌a̷̬͗̾c̵̡̱̞̋e̴̤̪͐-̵̛͓͖̏͂f̷̛͉͌͐i̴̛̤̎͂r̷͈̯̲͐s̶̜̤̘͊t̸̡͓̀ ̷̟͇͖́̈́͊t̵̢̺̝͂͠h̸̥͍͗̅r̶̳̿̇͛ò̸͙ȕ̶̺̤͋g̶̞̯̓͊h̴̡͓́ ̸͓̋t̶̛̪h̷̻͈͛̈́e̷̞͐ ̸̺̈́c̶͉͝r̷͉̽̎a̷̘͗c̴̳̅̈́T̸̻͕̤͛h̴͉͚͋e̸̛̦͍̎̾ͅ ̷͖̲̟̓́͝s̶̳̎k̴̦̝̺̏i̸͍͔͌͠͝ͅn̷͔̤͝ ̷͚̖̝̏͗͐o̷̜̪͉͒́͘n̶̳̦̈́ ̷̨̦͋͘m̵͇̹̼̓̿̕y̷̬̖͘͝ ̶̜͑̀h̵̠̬͗a̶̟̿n̶̨͓̈́̄͝d̷̛̝͎͛͌s̵̘̤͗ ̶̼͖̈́ỉ̵̬͚̼͒s̴͈̮̍̓n̷̡̲͌’̶̙͙̋t̷̗͐͒ ̴͕͌̈́m̶̬̐i̴̪̯͘͘n̵̞͈͛e̵͇͔̘͛ ̶̥̍̓a̸̲̱̐n̵̢̩͉̈́̀ÿ̸̼̠̼́̓̐m̷͇̍̈́͠ǒ̵̖r̴̟̜̽e̸̮̱̎́.̵̰̳͋",
-      "t̸̢̙͐ ̷̠̓̾w̴̟͌a̷̛͎̖͑ẗ̷̹̮́̽c̷͖͓͝h̶͙̱̎ë̷͎̱́d̶͖̓̍ͅ ̸̝̃m̷̺͍̍ĕ̶̝̏ ̴̙̞̼̔̿̅s̷͕̪̩̓̄̓l̴̤͍̟͐̈́e̵̫̖̱͌͐e̴̼̩̓p̴̢̠͖͐,̸̢̝͐́ ̵͕̘̲͑a̷̳̰̘̓n̴͎͕̈́̈́d̸̳͛ ̶̬̪͎͐̒͌s̷̪͓̈́m̶͙̥̕i̷̛̳̱̓l̷͍͆e̴̥̦͒͋d̸̺͗ ̶͕͕͔̀͒̀w̷̢̬̟͗i̶̪̠̤͛͋t̴͖̐h̴͍̆ ̶̡̤̻͝m̶̢̮̼̓̋y̷̫͎̿̏ ̷̻̾́t̸͚̺̀͌é̶͉̳͐e̸̟̓t̶̢̅͑h̶͎̱̺̿.̸̢̐",
-      "N̴͔̯͕̒̚͝ơ̸͖͎̈́ ̷͉̲̜̐m̴̲̈o̷̝̼̔͠r̴̘̼̅͝é̸̘̯ ̷̘̱̆̋ẅ̸͖́̽́h̶̞͈͂̀̚i̶͖̦̪̽s̶͎̓p̴̞̌e̷̬̅r̷̦̽͝s̶̛̠̀̐,̷̢̩́ ̴̢̼͓͗b̶̡̛̳́͗u̶͔̓t̷͙̓ ̴̼͙̄́t̴̢͆̿̈́h̷̛̩̯ē̷̮̿͘ ̷̙͐̕š̸͖ȉ̵͙̫n̷͉͗g̷̻͓̏i̸͉̱̾̋n̴̛̲̖̈́g̴̘̘̓̔͜͝ ̷̱͗͒w̷̰̃̀o̸̦͘n̷̡͌’̷̼͍͑̕t̵͍̓͠ ̴̺̈́͜s̶̢͓͘t̷̢̟̔ö̵͕̟́p̴͍̮̆.̸͕͕́",
-      "T̸̞̦̹͗͑͘h̷̼̯̽̏e̶͙̖̔y̸̙̙̾͝ ̸͓̺̳̾w̷̰̪̅̈́e̶͉̪͉͆͠a̴̗͝r̶̈́̇ͅ ̵̘̮̽̿m̸̢̛̞͎̒̽y̷͓̖͐ ̷̝͓̃́f̶͚̤̏̓a̷̢̒̓c̵̻̙̀e̵̖̠͌̚̕s̸͉̒ ̷͈̠͌̓l̴̰̄̈́ĭ̷͊̀͜k̵͓̪̳̄̇e̴͙̬͈̽ ̶̩͕̯͘m̶̨̔͐a̴̯̎s̶̖̦̎̈́̀k̶̯͎̋̾̕ͅș̶͖̅̈́,̸̪̈́ ̷͎̰̹̈́b̵̢͉́̚u̷̥̽͛t̸̺̜̍̓̓͜ ̷̡̻̞̿͊t̷̡̿h̴̙͖̋̅͐ȅ̶͓̕y̷̘̮͊̿͝ ̷̝͠d̸̘̪̋o̵̬͑n̷̜͍͒’̷̞̠̓ẗ̵̤́ ̶͇͙͝f̷̦̯͑́̕i̷͇̱̿͝ẗ̷̰́̐̽.̵͙̺̽",
-      "T̶͉̜͛h̷̠̤̐e̴̟͛̈́ ̷̢̟͗l̶̯̱͗ȋ̸͉̞͐g̶͓͙̎̚ḧ̷̟̒t̴̬̘̄͘ș̴̾ ̷̺̼̐f̴̯͎̈́l̶̞͎̈́̾i̴͕̗͂͝c̶̬͑͝k̵̰͒͘ͅe̴̦͛r̷̩̔͛é̶̻d̸̖͗ ̸͍͘o̵̩͙̍n̶̢̟̈́,̶̲͖̅ ̴̩̋̓ͅb̷̪͆ǘ̴͕̦́ț̷̈́͠ͅ ̸̼̈́͝t̵͎̥̋h̸̢̘̔̍ē̶̘͙͆ ̴͙̯͛s̷̼͠h̴̠͆͋ä̵̩̞́d̷̨̺̓o̷̢̪̽̿w̵̠͊ ̴͓̞͛d̶̛̙͌ḭ̴̯̾͠d̸͔͚͠n̶͈͘’̴͓̇t̷̛̠̞͋ ̷͓̓l̵̟̀́e̸̱̼̐a̶̯͒̈́v̴̟͛͌e̶̦̐.̶̳̙̓",
-      "Ḿ̴̞̲̤ý̵͕̟ ̶͚̬̯̒͆m̸͙̔̾i̶͕̠̖͛͘r̵̨͔̈́̓ŕ̵̨͎̰o̵̡͎̿͝r̵̠̓ ̵̡͉͇̈́̔r̶̩͙͋ẻ̸̠̚f̷̜͉͌̓l̶̯̙͐ę̷̝͙̽̕c̸̢̃t̶͉̦̽̎s̸̪͐͌ ̷̘͝s̴̙̲̊͑o̶̥̔m̷̰͇̜̄̈́e̸̺͐t̸̢̞̔ḧ̸̠̹́i̴̘͘͠n̷͍͝g̷̡͑̕ ̸͈̯͠s̷͍̄t̴̩̥̄͌i̴͉̾l̷͖̃͘l̴̛̳̼͠ ̶̛̰̐w̸͇̚a̴͈͖͋͝i̶̬̗̐͘t̸̢̩͗́i̵̩̮͒n̷͓̰͗g̷̡̈́͠ͅ.̶̺͙̎"
+    "P̸͎͉͍͜a̷͇̩̻̣̭͖s̷͔̻̱̗ş̸͙̻̜̮̭e̵͖͈͓d̶̩ ̴͇̰i̵͍̖͔̺̞n̵̰̳͎ ̶̭̞t̷̜͖ḥ̷̞̣̭e̷̗͜ ̷̢̧̤m̴̻̰ạ̷̙̖r̷̤̞g̷͎̟͍i̶̧̟̮̭ͅn̶̤͇͎s̴͓͇",
+    "S̶̛͖͉͗h̷̖̫͓̐̀e̷̩̎̿͛ ̷̛͔͘͘c̶͕͎͇̿̿͘r̸̙͖̞͂̔á̴̡̟̿ẅ̴͖̬̰ḻ̸̛̼́̅s̵̗̘͒̓͝ ̷̩͙̺͌̈́͌b̸̢̖̀a̷͎̰̍c̴̥͎̓̈́̎k̶̜̺̇̋̾ẅ̷̼́ą̸̩͗̍r̷̯͕̒d̶͙̖͛͝s̴̞͍͂̈́̍,̵͎̌ ̸̡̯̐̚f̵̛̠̾͌a̷̬͗̾c̵̡̱̞̋e̴̤̪͐-̵̛͓͖̏͂f̷̛͉͌͐i̴̛̤̎͂r̷͈̯̲͐s̶̜̤̘͊t̸̡͓̀ ̷̟͇͖́̈́͊t̵̢̺̝͂͠h̸̥͍͗̅r̶̳̿̇͛ò̸͙ȕ̶̺̤͋g̶̞̯̓͊h̴̡͓́ ̸͓̋t̶̛̪h̷̻͈͛̈́e̷̞͐ ̸̺̈́c̶͉͝r̷͉̽̎a̷̘͗c̴̳̅̈́T̸̻͕̤͛h̴͉͚͋e̸̛̦͍̎̾ͅ ̷͖̲̟̓́͝s̶̳̎k̴̦̝̺̏i̸͍͔͌͠͝ͅn̷͔̤͝ ̷͚̖̝̏͗͐o̷̜̪͉͒́͘n̶̳̦̈́ ̷̨̦͋͘m̵͇̹̼̓̿̕y̷̬̖͘͝ ̶̜͑̀h̵̠̬͗a̶̟̿n̶̨͓̈́̄͝d̷̛̝͎͛͌s̵̘̤͗ ̶̼͖̈́ỉ̵̬͚̼͒s̴͈̮̍̓n̷̡̲͌’̶̙͙̋t̷̗͐͒ ̴͕͌̈́m̶̬̐i̴̪̯͘͘n̵̞͈͛e̵͇͔̘͛ ̶̥̍̓a̸̲̱̐n̵̢̩͉̈́̀ÿ̸̼̠̼́̓̐m̷͇̍̈́͠ǒ̵̖r̴̟̜̽e̸̮̱̎́.̵̰̳͋",
+    "t̸̢̙͐ ̷̠̓̾w̴̟͌a̷̛͎̖͑ẗ̷̹̮́̽c̷͖͓͝h̶͙̱̎ë̷͎̱́d̶͖̓̍ͅ ̸̝̃m̷̺͍̍ĕ̶̝̏ ̴̙̞̼̔̿̅s̷͕̪̩̓̄̓l̴̤͍̟͐̈́e̵̫̖̱͌͐e̴̼̩̓p̴̢̠͖͐,̸̢̝͐́ ̵͕̘̲͑a̷̳̰̘̓n̴͎͕̈́̈́d̸̳͛ ̶̬̪͎͐̒͌s̷̪͓̈́m̶͙̥̕i̷̛̳̱̓l̷͍͆e̴̥̦͒͋d̸̺͗ ̶͕͕͔̀͒̀w̷̢̬̟͗i̶̪̠̤͛͋t̴͖̐h̴͍̆ ̶̡̤̻͝m̶̢̮̼̓̋y̷̫͎̿̏ ̷̻̾́t̸͚̺̀͌é̶͉̳͐e̸̟̓t̶̢̅͑h̶͎̱̺̿.̸̢̐",
+    "N̴͔̯͕̒̚͝ơ̸͖͎̈́ ̷͉̲̜̐m̴̲̈o̷̝̼̔͠r̴̘̼̅͝é̸̘̯ ̷̘̱̆̋ẅ̸͖́̽́h̶̞͈͂̀̚i̶͖̦̪̽s̶͎̓p̴̞̌e̷̬̅r̷̦̽͝s̶̛̠̀̐,̷̢̩́ ̴̢̼͓͗b̶̡̛̳́͗u̶͔̓t̷͙̓ ̴̼͙̄́t̴̢͆̿̈́h̷̛̩̯ē̷̮̿͘ ̷̙͐̕š̸͖ȉ̵͙̫n̷͉͗g̷̻͓̏i̸͉̱̾̋n̴̛̲̖̈́g̴̘̘̓̔͜͝ ̷̱͗͒w̷̰̃̀o̸̦͘n̷̡͌’̷̼͍͑̕t̵͍̓͠ ̴̺̈́͜s̶̢͓͘t̷̢̟̔ö̵͕̟́p̴͍̮̆.̸͕͕́",
+    "T̸̞̦̹͗͑͘h̷̼̯̽̏e̶͙̖̔y̸̙̙̾͝ ̸͓̺̳̾w̷̰̪̅̈́e̶͉̪͉͆͠a̴̗͝r̶̈́̇ͅ ̵̘̮̽̿m̸̢̛̞͎̒̽y̷͓̖͐ ̷̝͓̃́f̶͚̤̏̓a̷̢̒̓c̵̻̙̀e̵̖̠͌̚̕s̸͉̒ ̷͈̠͌̓l̴̰̄̈́ĭ̷͊̀͜k̵͓̪̳̄̇e̴͙̬͈̽ ̶̩͕̯͘m̶̨̔͐a̴̯̎s̶̖̦̎̈́̀k̶̯͎̋̾̕ͅș̶͖̅̈́,̸̪̈́ ̷͎̰̹̈́b̵̢͉́̚u̷̥̽͛t̸̺̜̍̓̓͜ ̷̡̻̞̿͊t̷̡̿h̴̙͖̋̅͐ȅ̶͓̕y̷̘̮͊̿͝ ̷̝͠d̸̘̪̋o̵̬͑n̷̜͍͒’̷̞̠̓ẗ̵̤́ ̶͇͙͝f̷̦̯͑́̕i̷͇̱̿͝ẗ̷̰́̐̽.̵͙̺̽",
+    "T̶͉̜͛h̷̠̤̐e̴̟͛̈́ ̷̢̟͗l̶̯̱͗ȋ̸͉̞͐g̶͓͙̎̚ḧ̷̟̒t̴̬̘̄͘ș̴̾ ̷̺̼̐f̴̯͎̈́l̶̞͎̈́̾i̴͕̗͂͝c̶̬͑͝k̵̰͒͘ͅe̴̦͛r̷̩̔͛é̶̻d̸̖͗ ̸͍͘o̵̩͙̍n̶̢̟̈́,̶̲͖̅ ̴̩̋̓ͅb̷̪͆ǘ̴͕̦́ț̷̈́͠ͅ ̸̼̈́͝t̵͎̥̋h̸̢̘̔̍ē̶̘͙͆ ̴͙̯͛s̷̼͠h̴̠͆͋ä̵̩̞́d̷̨̺̓o̷̢̪̽̿w̵̠͊ ̴͓̞͛d̶̛̙͌ḭ̴̯̾͠d̸͔͚͠n̶͈͘’̴͓̇t̷̛̠̞͋ ̷͓̓l̵̟̀́e̸̱̼̐a̶̯͒̈́v̴̟͛͌e̶̦̐.̶̳̙̓",
+    "Ḿ̴̞̲̤ý̵͕̟ ̶͚̬̯̒͆m̸͙̔̾i̶͕̠̖͛͘r̵̨͔̈́̓ŕ̵̨͎̰o̵̡͎̿͝r̵̠̓ ̵̡͉͇̈́̔r̶̩͙͋ẻ̸̠̚f̷̜͉͌̓l̶̯̙͐ę̷̝͙̽̕c̸̢̃t̶͉̦̽̎s̸̪͐͌ ̷̘͝s̴̙̲̊͑o̶̥̔m̷̰͇̜̄̈́e̸̺͐t̸̢̞̔ḧ̸̠̹́i̴̘͘͠n̷͍͝g̷̡͑̕ ̸͈̯͠s̷͍̄t̴̩̥̄͌i̴͉̾l̷͖̃͘l̴̛̳̼͠ ̶̛̰̐w̸͇̚a̴͈͖͋͝i̶̬̗̐͘t̸̢̩͗́i̵̩̮͒n̷͓̰͗g̷̡̈́͠ͅ.̶̺͙̎"
     ];
     const baseGibber = glitchLines.join(' ') + ' ';
     const gargle = baseGibber.repeat(360);
     const argMessages = [gargle, gargle, gargle, gargle];
-
-    function setVolume(n) { [1,2,3].forEach(i => { const a = document.getElementById('sound'+i); a.volume = Math.min(Math.max(n/100,0),1); }); }
-    function playSound(i) { const a = document.getElementById('sound'+i); a.currentTime = 0; a.play(); }
 
     function argOn() {
       document.body.classList.add('arg-mode');
@@ -202,54 +212,45 @@
     }
     function argOff() {
       document.body.classList.remove('arg-mode');
-      slides.forEach(slide => { const img = slide.querySelector('img'); if (img.dataset.orig) { img.src = img.dataset.orig; delete img.dataset.orig; } });
+      slides.forEach(slide => {
+        const img = slide.querySelector('img');
+        if (img && img.dataset.orig) {
+          img.src = img.dataset.orig;
+          delete img.dataset.orig;
+        }
+      });
       document.querySelectorAll('.arg-text').forEach(el => el.remove());
     }
 
-    let datamoshInterval;
-    function glitch2On() { /* unchanged */ }
-    function glitch2Off() { /* unchanged */ }
+    function hideMessage(text, visibleLetters) {
+      return text.split('').map(c => {
+        return visibleLetters.includes(c.toLowerCase()) ? c : `<span class="hidden-char">${c}</span>`;
+      }).join('');
+    }
 
     function floydOn() {
-      const messages = {
-        1: "19   12",
-        2: "i am watching you",
-        3: "i am here"
-      };
-
-      slides.forEach((slide, idx) => {
-        const p = slide.querySelector('p');
-        if (!p) return;
-        const original = p.textContent;
-        p.dataset.originalText = original;
-
-        const msg = messages[idx];
-        if (!msg) return;
-
-        const visibleSet = new Set(msg.toLowerCase().replace(/[^a-z0-9]/g, '').split(''));
-        const transformed = [...original].map(c => {
-          if (visibleSet.has(c.toLowerCase())) return c;
-          if (c === ' ' || c === '\n') return c;
-          return '█';
-        }).join('');
-        p.textContent = transformed;
-      });
+      document.getElementById("slide2text").innerHTML = hideMessage(
+        document.getElementById("slide2text").textContent,
+        ['1','9','2']
+      );
+      document.getElementById("slide3text").innerHTML = hideMessage(
+        document.getElementById("slide3text").textContent,
+        'iamwatchingyou'.split('')
+      );
+      document.getElementById("slide4text").innerHTML = hideMessage(
+        document.getElementById("slide4text").textContent,
+        'iamhere'.split('')
+      );
     }
 
     function floydOff() {
-      slides.forEach(slide => {
-        const p = slide.querySelector('p');
-        if (p && p.dataset.originalText) {
-          p.textContent = p.dataset.originalText;
-          delete p.dataset.originalText;
-        }
-      });
+      location.reload();
     }
 
-
-    // Socket events
     socket.on('command', cmd => {
       switch (cmd) {
+        case 'floyd_on': floydOn(); break;
+        case 'floyd_off': floydOff(); break;
         case 'arg_down': argOn(); break;
         case 'arg_up': argOff(); break;
         case 'sound1': playSound(1); break;
@@ -257,14 +258,12 @@
         case 'sound3': playSound(3); break;
         case 'glitch1_down': document.body.classList.add('glitch1'); break;
         case 'glitch1_up': document.body.classList.remove('glitch1'); break;
-        case 'glitch2_down': glitch2On(); break;
-        case 'glitch2_up': glitch2Off(); break;
         case 'glitch3_down': document.body.classList.add('glitch3'); break;
         case 'glitch3_up': document.body.classList.remove('glitch3'); break;
-        case 'floyd_on': floydOn(); break;
-        case 'floyd_off': floydOff(); break;
       }
     });
+
     socket.on('volume', data => setVolume(data.volume));
   </script>
 </body>
+</html>
