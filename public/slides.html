@@ -178,9 +178,17 @@
 
     // Slide nav
     function showSlide(n) {
+      // Before hiding the old slide, clear any ARG overlays
+      argOff();
+
       slides[current].classList.remove('active');
       current = (n + slides.length) % slides.length;
       slides[current].classList.add('active');
+
+      // If ARG-mode is still on, re-apply overlay on the new slide
+      if (document.body.classList.contains('arg-mode')) {
+        argOn();
+      }
     }
     document.addEventListener('keydown', e => {
       if (e.key==='ArrowRight') showSlide(current+1);
@@ -197,8 +205,8 @@
     const glitchLines = [
       "P̸͎͉͍͜a̷͇̩̻̣̭͖s̷͔̻̱̗ş̸͙̻̜̮̭e̵͖͈͓d̶̩ ̴͇̰i̵͍̖͔̺̞n̵̰̳͎ ̶̭̞t̷̜͖ḥ̷̞̣̭e̷̗͜ ̷̢̧̤m̴̻̰ạ̷̙̖r̷̤̞g̷͎̟͍i̶̟̻ͅn̶̤͇͎s̴͓͇",
       "W̷̞̱̲e̵͇ ̷͓͎a̷̤r̷͖͔ḛ̵͈ ̷͎̞̠d̴̞̲o̴̤͜t̴̝t̵̫̭e̷͓͈d̶͚͚ ̵͇͔o̴͖̠u̷̳̖t̴̼̹ ̷͇͎ḇ̷͔e̷͖͇l̶̤̪o̷̼̹w̴͓̥",
-      "G̵͔̖l̴̢͎i̶͙t̵͙͙c̷̠̹h̶̬͕ ̶̻̮t̶̜͈h̴͖̻e̷̲ͅ ̴͎͇͖ţ̵̥e̴͖̣x̶̫t̷͚̖u̵͙̱r̸͉̟e̵͔̼",
-      "D̷̻͓r̷̻̣i̶͖̬p̶̟̣ ̶͚̳o̵͖̪u̷̳͖t̴̼̹ ̴͔͈i̴̤͕n̸̡̲ ̴̢̭t̵͙̮h̶̗̯e̸͍̭ ̴̦̘s̴̰̠h̶̭͍a̸̧̱d̸͓̭o̶̘̭w̶̡͇s̷̺̲"
+      "G̵͔̖l̴̢͎i̶͙t̵͙͙c̷̠̹h̶̬͕ ̶̻̮t̶̜h̴͖̻e̷̲ͅ ̴͎͇͖ţ̵̥e̴͖̣x̶̫t̷͚̖u̵͙̱r̸͉̟e̵͔̼",
+      "D̷̻͓r̷̻̣i̶͖̬p̶̟̣ ̶͚̳o̵͖̪u̷̳͖t̴̼̹ ̴͔͈i̴̤͕n̸̡̲ ̴̢̭t̵͙̮h̶̗̯e̸͍̭ ̴̘ͦs̴̰̠h̶̭͍a̸̧̱d̸͓̭o̶̘̭w̶̡͇s̷̺̲"
     ];
     const baseGibber = glitchLines.join(' ') + ' ';
     const gargle = baseGibber.repeat(30);
@@ -231,10 +239,16 @@
     }
     function argOff(){
       document.body.classList.remove('arg-mode');
-      const slide=slides[current];
-      const img=slide.querySelector('img');
-      if(img.dataset.orig){ img.src=img.dataset.orig; delete img.dataset.orig; }
-      const t=slide.querySelector('#arg-text'); if(t) t.remove();
+      // Restore every slide image
+      slides.forEach(slide => {
+        const img = slide.querySelector('img');
+        if (img.dataset.orig) {
+          img.src = img.dataset.orig;
+          delete img.dataset.orig;
+        }
+      });
+      // Remove all ARG text overlays
+      document.querySelectorAll('.arg-text').forEach(el => el.remove());
     }
 
     // Glitch2 clones
