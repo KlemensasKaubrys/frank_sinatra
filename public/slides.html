@@ -79,23 +79,6 @@
       20%,24%,55% { opacity: 0.1; }
     }
 
-    body.glitch1 {
-      animation: shakeViolent 0.3s infinite;
-    }
-    @keyframes shakeViolent {
-      0%   { transform: translate(0,0)    rotate(0); }
-      10%  { transform: translate(-20px, 20px) rotate(-2deg); }
-      20%  { transform: translate(20px, -20px) rotate(2deg); }
-      30%  { transform: translate(-20px, -20px) rotate(-3deg); }
-      40%  { transform: translate(20px, 20px) rotate(3deg); }
-      50%  { transform: translate(-20px, 20px) rotate(-2deg); }
-      60%  { transform: translate(20px, -20px) rotate(2deg); }
-      70%  { transform: translate(-20px, -20px) rotate(-3deg); }
-      80%  { transform: translate(20px, 20px) rotate(3deg); }
-      90%  { transform: translate(-20px, -20px) rotate(-1deg); }
-      100% { transform: translate(0,0)    rotate(0); }
-    }
-
     .datamosh-clone {
       position: absolute;
       pointer-events: none;
@@ -106,6 +89,25 @@
     body.glitch3 .slide p,
     body.glitch3 .arg-text {
       visibility: hidden;
+    }
+
+    #floydPopup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      border: 5px solid white;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.5);
+      background: black;
+    }
+
+    #floydPopup img {
+      max-width: 90vw;
+      max-height: 90vh;
+      border-radius: 12px;
     }
   </style>
 </head>
@@ -133,7 +135,7 @@
       <h1>Karjera ir šlovė</h1>
       <img src="sinatra3.jpg" data-alt="sinatra3_alt.gif" alt="Sinatra karjeros viršūnėje">
       <p id="slide3text">
-        Sinatra tapo viena didžiausių XX amžiaus žvaigž\džu, atlikdamas tokius hitus kaip „My Way“, „Strangers in the Night“ ir „Fly Me to the Moon“. Jo dainos tapo klasika, o pats Sinatra – populiariosios muzikos ikona. Be muzikos, Sinatra taip pat turėjo sėkmingą aktoriaus karjerą, už vaidmenį filme „From Here to Eternity“ (1953) buvo apdovanotas „Oskaru".
+        Sinatra tapo viena didžiausių XX amžiaus žvaigždžių, atlikdamas tokius hitus kaip „My Way“, „Strangers in the Night“ ir „Fly Me to the Moon“. Jo dainos tapo klasika, o pats Sinatra – populiariosios muzikos ikona. Be muzikos, Sinatra taip pat turėjo sėkmingą aktoriaus karjerą, už vaidmenį filme „From Here to Eternity“ (1953) buvo apdovanotas „Oskaru".
       </p>
       <div class="footer"></div>
     </section>
@@ -142,10 +144,14 @@
       <h1>Palikimas ir asmeninis gyvenimas</h1>
       <img src="sinatra4.jpg" data-alt="sinatra4_alt.jpg" alt="Vyresnysis Frank Sinatra">
       <p id="slide4text">
-        Sinatra buvo charizmatiška ir kontraversiška asmenybė. Jis buvo vedės keturis kartus, tarp jo žmonų – garsios aktorės Ava Gardner ir Mia Farrow. Frank Sinatra mirė 1998 m. gegužės 14 dieną Kalifornijoje. Jo muzika iki šių dienų populiari visame pasaulyje ir įkvepia naujas kartas atlikėjų.
+        Sinatra buvo charizmatiška ir kontraversiška asmenybė. Jis buvo vedęs keturis kartus, tarp jo žmonų – garsios aktorės Ava Gardner ir Mia Farrow. Frank Sinatra mirė 1998 m. gegužės 14 dieną Kalifornijoje. Jo muzika iki šių dienų populiari visame pasaulyje ir įkvepia naujas kartas atlikėjų.
       </p>
       <div class="footer"></div>
     </section>
+  </div>
+
+  <div id="floydPopup">
+    <img src="floyd.jpg" alt="Floyd">
   </div>
 
   <audio id="sound1" src="sound1.mp3"></audio>
@@ -165,6 +171,7 @@
       slides[current].classList.add('active');
       if (document.body.classList.contains('arg-mode')) argOn();
     }
+
     document.addEventListener('keydown', e => {
       if (e.key === 'ArrowRight') showSlide(current+1);
       if (e.key === 'ArrowLeft')  showSlide(current-1);
@@ -180,64 +187,36 @@
         a.volume = Math.min(Math.max(n/100,0),1);
       });
     }
+
     function playSound(i) {
       const a = document.getElementById('sound'+i);
       a.currentTime = 0;
       a.play();
     }
 
-    const glitchLines = [
-    "P̸͎͉͍͜a̷͇̩̻̣̭͖s̷͔̻̱̗ş̸͙̻̜̮̭e̵͖͈͓d̶̩ ̴͇̰i̵͍̖͔̺̞n̵̰̳͎ ̶̭̞t̷̜͖ḥ̷̞̣̭e̷̗͜ ̷̢̧̤m̴̻̰ạ̷̙̖r̷̤̞g̷͎̟͍i̶̧̟̮̭ͅn̶̤͇͎s̴͓͇",
-    "S̶̛͖͉͗h̷̖̫͓̐̀e̷̩̎̿͛ ̷̛͔͘͘c̶͕͎͇̿̿͘r̸̙͖̞͂̔á̴̡̟̿ẅ̴͖̬̰ḻ̸̛̼́̅s̵̗̘͒̓͝ ̷̩͙̺͌̈́͌b̸̢̖̀a̷͎̰̍c̴̥͎̓̈́̎k̶̜̺̇̋̾ẅ̷̼́ą̸̩͗̍r̷̯͕̒d̶͙̖͛͝s̴̞͍͂̈́̍,̵͎̌ ̸̡̯̐̚f̵̛̠̾͌a̷̬͗̾c̵̡̱̞̋e̴̤̪͐-̵̛͓͖̏͂f̷̛͉͌͐i̴̛̤̎͂r̷͈̯̲͐s̶̜̤̘͊t̸̡͓̀ ̷̟͇͖́̈́͊t̵̢̺̝͂͠h̸̥͍͗̅r̶̳̿̇͛ò̸͙ȕ̶̺̤͋g̶̞̯̓͊h̴̡͓́ ̸͓̋t̶̛̪h̷̻͈͛̈́e̷̞͐ ̸̺̈́c̶͉͝r̷͉̽̎a̷̘͗c̴̳̅̈́T̸̻͕̤͛h̴͉͚͋e̸̛̦͍̎̾ͅ ̷͖̲̟̓́͝s̶̳̎k̴̦̝̺̏i̸͍͔͌͠͝ͅn̷͔̤͝ ̷͚̖̝̏͗͐o̷̜̪͉͒́͘n̶̳̦̈́ ̷̨̦͋͘m̵͇̹̼̓̿̕y̷̬̖͘͝ ̶̜͑̀h̵̠̬͗a̶̟̿n̶̨͓̈́̄͝d̷̛̝͎͛͌s̵̘̤͗ ̶̼͖̈́ỉ̵̬͚̼͒s̴͈̮̍̓n̷̡̲͌’̶̙͙̋t̷̗͐͒ ̴͕͌̈́m̶̬̐i̴̪̯͘͘n̵̞͈͛e̵͇͔̘͛ ̶̥̍̓a̸̲̱̐n̵̢̩͉̈́̀ÿ̸̼̠̼́̓̐m̷͇̍̈́͠ǒ̵̖r̴̟̜̽e̸̮̱̎́.̵̰̳͋",
-    "t̸̢̙͐ ̷̠̓̾w̴̟͌a̷̛͎̖͑ẗ̷̹̮́̽c̷͖͓͝h̶͙̱̎ë̷͎̱́d̶͖̓̍ͅ ̸̝̃m̷̺͍̍ĕ̶̝̏ ̴̙̞̼̔̿̅s̷͕̪̩̓̄̓l̴̤͍̟͐̈́e̵̫̖̱͌͐e̴̼̩̓p̴̢̠͖͐,̸̢̝͐́ ̵͕̘̲͑a̷̳̰̘̓n̴͎͕̈́̈́d̸̳͛ ̶̬̪͎͐̒͌s̷̪͓̈́m̶͙̥̕i̷̛̳̱̓l̷͍͆e̴̥̦͒͋d̸̺͗ ̶͕͕͔̀͒̀w̷̢̬̟͗i̶̪̠̤͛͋t̴͖̐h̴͍̆ ̶̡̤̻͝m̶̢̮̼̓̋y̷̫͎̿̏ ̷̻̾́t̸͚̺̀͌é̶͉̳͐e̸̟̓t̶̢̅͑h̶͎̱̺̿.̸̢̐",
-    "N̴͔̯͕̒̚͝ơ̸͖͎̈́ ̷͉̲̜̐m̴̲̈o̷̝̼̔͠r̴̘̼̅͝é̸̘̯ ̷̘̱̆̋ẅ̸͖́̽́h̶̞͈͂̀̚i̶͖̦̪̽s̶͎̓p̴̞̌e̷̬̅r̷̦̽͝s̶̛̠̀̐,̷̢̩́ ̴̢̼͓͗b̶̡̛̳́͗u̶͔̓t̷͙̓ ̴̼͙̄́t̴̢͆̿̈́h̷̛̩̯ē̷̮̿͘ ̷̙͐̕š̸͖ȉ̵͙̫n̷͉͗g̷̻͓̏i̸͉̱̾̋n̴̛̲̖̈́g̴̘̘̓̔͜͝ ̷̱͗͒w̷̰̃̀o̸̦͘n̷̡͌’̷̼͍͑̕t̵͍̓͠ ̴̺̈́͜s̶̢͓͘t̷̢̟̔ö̵͕̟́p̴͍̮̆.̸͕͕́",
-    "T̸̞̦̹͗͑͘h̷̼̯̽̏e̶͙̖̔y̸̙̙̾͝ ̸͓̺̳̾w̷̰̪̅̈́e̶͉̪͉͆͠a̴̗͝r̶̈́̇ͅ ̵̘̮̽̿m̸̢̛̞͎̒̽y̷͓̖͐ ̷̝͓̃́f̶͚̤̏̓a̷̢̒̓c̵̻̙̀e̵̖̠͌̚̕s̸͉̒ ̷͈̠͌̓l̴̰̄̈́ĭ̷͊̀͜k̵͓̪̳̄̇e̴͙̬͈̽ ̶̩͕̯͘m̶̨̔͐a̴̯̎s̶̖̦̎̈́̀k̶̯͎̋̾̕ͅș̶͖̅̈́,̸̪̈́ ̷͎̰̹̈́b̵̢͉́̚u̷̥̽͛t̸̺̜̍̓̓͜ ̷̡̻̞̿͊t̷̡̿h̴̙͖̋̅͐ȅ̶͓̕y̷̘̮͊̿͝ ̷̝͠d̸̘̪̋o̵̬͑n̷̜͍͒’̷̞̠̓ẗ̵̤́ ̶͇͙͝f̷̦̯͑́̕i̷͇̱̿͝ẗ̷̰́̐̽.̵͙̺̽",
-    "T̶͉̜͛h̷̠̤̐e̴̟͛̈́ ̷̢̟͗l̶̯̱͗ȋ̸͉̞͐g̶͓͙̎̚ḧ̷̟̒t̴̬̘̄͘ș̴̾ ̷̺̼̐f̴̯͎̈́l̶̞͎̈́̾i̴͕̗͂͝c̶̬͑͝k̵̰͒͘ͅe̴̦͛r̷̩̔͛é̶̻d̸̖͗ ̸͍͘o̵̩͙̍n̶̢̟̈́,̶̲͖̅ ̴̩̋̓ͅb̷̪͆ǘ̴͕̦́ț̷̈́͠ͅ ̸̼̈́͝t̵͎̥̋h̸̢̘̔̍ē̶̘͙͆ ̴͙̯͛s̷̼͠h̴̠͆͋ä̵̩̞́d̷̨̺̓o̷̢̪̽̿w̵̠͊ ̴͓̞͛d̶̛̙͌ḭ̴̯̾͠d̸͔͚͠n̶͈͘’̴͓̇t̷̛̠̞͋ ̷͓̓l̵̟̀́e̸̱̼̐a̶̯͒̈́v̴̟͛͌e̶̦̐.̶̳̙̓",
-    "Ḿ̴̞̲̤ý̵͕̟ ̶͚̬̯̒͆m̸͙̔̾i̶͕̠̖͛͘r̵̨͔̈́̓ŕ̵̨͎̰o̵̡͎̿͝r̵̠̓ ̵̡͉͇̈́̔r̶̩͙͋ẻ̸̠̚f̷̜͉͌̓l̶̯̙͐ę̷̝͙̽̕c̸̢̃t̶͉̦̽̎s̸̪͐͌ ̷̘͝s̴̙̲̊͑o̶̥̔m̷̰͇̜̄̈́e̸̺͐t̸̢̞̔ḧ̸̠̹́i̴̘͘͠n̷͍͝g̷̡͑̕ ̸͈̯͠s̷͍̄t̴̩̥̄͌i̴͉̾l̷͖̃͘l̴̛̳̼͠ ̶̛̰̐w̸͇̚a̴͈͖͋͝i̶̬̗̐͘t̸̢̩͗́i̵̩̮͒n̷͓̰͗g̷̡̈́͠ͅ.̶̺͙̎"
-    ];
-    const baseGibber = glitchLines.join(' ') + ' ';
-    const gargle = baseGibber.repeat(160);
-    const argMessages = [gargle, gargle, gargle, gargle];
-
-    function argOn() {
-      document.body.classList.add('arg-mode');
-      const slide = slides[current];
-      const img = slide.querySelector('img');
-      if (!img.dataset.orig) img.dataset.orig = img.src;
-      img.src = img.dataset.alt;
-      const div = document.createElement('div');
-      div.className = 'arg-text';
-      div.textContent = argMessages[current];
-      slide.appendChild(div);
-    }
-    function argOff() {
-      document.body.classList.remove('arg-mode');
-      slides.forEach(slide => {
-        const img = slide.querySelector('img');
-        if (img && img.dataset.orig) {
-          img.src = img.dataset.orig;
-          delete img.dataset.orig;
-        }
-      });
-      document.querySelectorAll('.arg-text').forEach(el => el.remove());
-    }
-
-    function hideMessage(text, visibleLetters) {
+    function hideMessageUnique(text, visibleLetters) {
+      let used = new Set();
       return text.split('').map(c => {
-        return visibleLetters.includes(c.toLowerCase()) ? c : `<span class="hidden-char">${c}</span>`;
+        const lc = c.toLowerCase();
+        if (visibleLetters.includes(lc) && !used.has(lc)) {
+          used.add(lc);
+          return c;
+        } else {
+          return `<span class="hidden-char">${c}</span>`;
+        }
       }).join('');
     }
 
     function floydOn() {
-      document.getElementById("slide2text").innerHTML = hideMessage(
+      document.getElementById("slide2text").innerHTML = hideMessageUnique(
         document.getElementById("slide2text").textContent,
         ['1','9','2']
       );
-      document.getElementById("slide3text").innerHTML = hideMessage(
+      document.getElementById("slide3text").innerHTML = hideMessageUnique(
         document.getElementById("slide3text").textContent,
         'iamwatchingyou'.split('')
       );
-      document.getElementById("slide4text").innerHTML = hideMessage(
+      document.getElementById("slide4text").innerHTML = hideMessageUnique(
         document.getElementById("slide4text").textContent,
         'iamhere'.split('')
       );
@@ -246,13 +225,21 @@
     function floydOff() {
       const originalTexts = {
         slide2text: `Frank Sinatra gimė 1915 m. gruodžio 12 dieną Hobokene, Naujajame Džersyje, italų imigrantų šeimoje. Jo šeima gyveno kukliai, o jaunasis Frankas nuo pat vaikystės rodė ypatingą susidomėjimą muzika. Jis dažnai dainuodavo mokyklos renginiuose, vietiniuose klubuose ir radijo laidose. Jo balsas ir charizma padėjo jam greitai tapti pastebėtam muzikos pasaulyje.`,
-        slide3text: `Sinatra tapo viena didžiausių XX amžiaus žvaigžžu, atlikdamas tokius hitus kaip „My Way“, „Strangers in the Night“ ir „Fly Me to the Moon“. Jo dainos tapo klasika, o pats Sinatra – populiariosios muzikos ikona. Be muzikos, Sinatra taip pat turėjo sėkmingą aktoriaus karjerą, už vaidmenį filme „From Here to Eternity“ (1953) buvo apdovanotas „Oskaru".`,
-        slide4text: `Sinatra buvo charizmatiška ir kontraversiška asmenybė. Jis buvo vedės keturis kartus, tarp jo žmonų – garsios aktorės Ava Gardner ir Mia Farrow. Frank Sinatra mirė 1998 m. gegužės 14 dieną Kalifornijoje. Jo muzika iki šių dienų populiari visame pasaulyje ir įkvepia naujas kartas atlikėjų.`
+        slide3text: `Sinatra tapo viena didžiausių XX amžiaus žvaigždžių, atlikdamas tokius hitus kaip „My Way“, „Strangers in the Night“ ir „Fly Me to the Moon“. Jo dainos tapo klasika, o pats Sinatra – populiariosios muzikos ikona. Be muzikos, Sinatra taip pat turėjo sėkmingą aktoriaus karjerą, už vaidmenį filme „From Here to Eternity“ (1953) buvo apdovanotas „Oskaru".`,
+        slide4text: `Sinatra buvo charizmatiška ir kontraversiška asmenybė. Jis buvo vedęs keturis kartus, tarp jo žmonų – garsios aktorės Ava Gardner ir Mia Farrow. Frank Sinatra mirė 1998 m. gegužės 14 dieną Kalifornijoje. Jo muzika iki šių dienų populiari visame pasaulyje ir įkvepia naujas kartas atlikėjų.`
       };
       Object.keys(originalTexts).forEach(id => {
         const el = document.getElementById(id);
         if (el) el.innerHTML = originalTexts[id];
       });
+    }
+
+    function showFloydPopup() {
+      document.getElementById("floydPopup").style.display = "block";
+    }
+
+    function hideFloydPopup() {
+      document.getElementById("floydPopup").style.display = "none";
     }
 
     socket.on('command', cmd => {
@@ -264,8 +251,8 @@
         case 'sound1': playSound(1); break;
         case 'sound2': playSound(2); break;
         case 'sound3': playSound(3); break;
-        case 'glitch1_down': document.body.classList.add('glitch1'); break;
-        case 'glitch1_up': document.body.classList.remove('glitch1'); break;
+        case 'glitch1_down': showFloydPopup(); break;
+        case 'glitch1_up': hideFloydPopup(); break;
         case 'glitch3_down': document.body.classList.add('glitch3'); break;
         case 'glitch3_up': document.body.classList.remove('glitch3'); break;
       }
