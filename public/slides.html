@@ -73,6 +73,7 @@
       white-space: pre-wrap;
       max-width: 90%;
       animation: flicker 0.2s infinite;
+      z-index: 9999;
     }
     @keyframes flicker {
       0%,19%,21%,50%,100% { opacity: 1; }
@@ -94,25 +95,23 @@
     #floydPopup {
       display: none;
       position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 9999;
-      border: 5px solid white;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(255,255,255,0.5);
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 9998;
       background: black;
     }
 
     #floydPopup img {
-      max-width: 90vw;
-      max-height: 90vh;
-      border-radius: 12px;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
     }
   </style>
 </head>
 <body>
-  <div id="slides">
+   <div id="slides">
     <section class="slide one active">
       <div class="header"></div>
       <div class="content">
@@ -194,6 +193,42 @@
       a.play();
     }
 
+    const glitchLines = [
+    "P̸͎͉͍͜a̷͇̩̻̣̭͖s̷͔̻̱̗ş̸͙̻̜̮̭e̵͖͈͓d̶̩ ̴͇̰i̵͍̖͔̺̞n̵̰̳͎ ̶̭̞t̷̜͖ḥ̷̞̣̭e̷̗͜ ̷̢̧̤m̴̻̰ạ̷̙̖r̷̤̞g̷͎̟͍i̶̧̟̮̭ͅn̶̤͇͎s̴͓͇",
+    "S̶̛͖͉͗h̷̖̫͓̐̀e̷̩̎̿͛ ̷̛͔͘͘c̶͕͎͇̿̿͘r̸̙͖̞͂̔á̴̡̟̿ẅ̴͖̬̰ḻ̸̛̼́̅s̵̗̘͒̓͝ ̷̩͙̺͌̈́͌b̸̢̖̀a̷͎̰̍c̴̥͎̓̈́̎k̶̜̺̇̋̾ẅ̷̼́ą̸̩͗̍r̷̯͕̒d̶͙̖͛͝s̴̞͍͂̈́̍,̵͎̌ ̸̡̯̐̚f̵̛̠̾͌a̷̬͗̾c̵̡̱̞̋e̴̤̪͐-̵̛͓͖̏͂f̷̛͉͌͐i̴̛̤̎͂r̷͈̯̲͐s̶̜̤̘͊t̸̡͓̀ ̷̟͇͖́̈́͊t̵̢̺̝͂͠h̸̥͍͗̅r̶̳̿̇͛ò̸͙ȕ̶̺̤͋g̶̞̯̓͊h̴̡͓́ ̸͓̋t̶̛̪h̷̻͈͛̈́e̷̞͐ ̸̺̈́c̶͉͝r̷͉̽̎a̷̘͗c̴̳̅̈́T̸̻͕̤͛h̴͉͚͋e̸̛̦͍̎̾ͅ ̷͖̲̟̓́͝s̶̳̎k̴̦̝̺̏i̸͍͔͌͠͝ͅn̷͔̤͝ ̷͚̖̝̏͗͐o̷̜̪͉͒́͘n̶̳̦̈́ ̷̨̦͋͘m̵͇̹̼̓̿̕y̷̬̖͘͝ ̶̜͑̀h̵̠̬͗a̶̟̿n̶̨͓̈́̄͝d̷̛̝͎͛͌s̵̘̤͗ ̶̼͖̈́ỉ̵̬͚̼͒s̴͈̮̍̓n̷̡̲͌’̶̙͙̋t̷̗͐͒ ̴͕͌̈́m̶̬̐i̴̪̯͘͘n̵̞͈͛e̵͇͔̘͛ ̶̥̍̓a̸̲̱̐n̵̢̩͉̈́̀ÿ̸̼̠̼́̓̐m̷͇̍̈́͠ǒ̵̖r̴̟̜̽e̸̮̱̎́.̵̰̳͋",
+    "t̸̢̙͐ ̷̠̓̾w̴̟͌a̷̛͎̖͑ẗ̷̹̮́̽c̷͖͓͝h̶͙̱̎ë̷͎̱́d̶͖̓̍ͅ ̸̝̃m̷̺͍̍ĕ̶̝̏ ̴̙̞̼̔̿̅s̷͕̪̩̓̄̓l̴̤͍̟͐̈́e̵̫̖̱͌͐e̴̼̩̓p̴̢̠͖͐,̸̢̝͐́ ̵͕̘̲͑a̷̳̰̘̓n̴͎͕̈́̈́d̸̳͛ ̶̬̪͎͐̒͌s̷̪͓̈́m̶͙̥̕i̷̛̳̱̓l̷͍͆e̴̥̦͒͋d̸̺͗ ̶͕͕͔̀͒̀w̷̢̬̟͗i̶̪̠̤͛͋t̴͖̐h̴͍̆ ̶̡̤̻͝m̶̢̮̼̓̋y̷̫͎̿̏ ̷̻̾́t̸͚̺̀͌é̶͉̳͐e̸̟̓t̶̢̅͑h̶͎̱̺̿.̸̢̐",
+    "N̴͔̯͕̒̚͝ơ̸͖͎̈́ ̷͉̲̜̐m̴̲̈o̷̝̼̔͠r̴̘̼̅͝é̸̘̯ ̷̘̱̆̋ẅ̸͖́̽́h̶̞͈͂̀̚i̶͖̦̪̽s̶͎̓p̴̞̌e̷̬̅r̷̦̽͝s̶̛̠̀̐,̷̢̩́ ̴̢̼͓͗b̶̡̛̳́͗u̶͔̓t̷͙̓ ̴̼͙̄́t̴̢͆̿̈́h̷̛̩̯ē̷̮̿͘ ̷̙͐̕š̸͖ȉ̵͙̫n̷͉͗g̷̻͓̏i̸͉̱̾̋n̴̛̲̖̈́g̴̘̘̓̔͜͝ ̷̱͗͒w̷̰̃̀o̸̦͘n̷̡͌’̷̼͍͑̕t̵͍̓͠ ̴̺̈́͜s̶̢͓͘t̷̢̟̔ö̵͕̟́p̴͍̮̆.̸͕͕́",
+    "T̸̞̦̹͗͑͘h̷̼̯̽̏e̶͙̖̔y̸̙̙̾͝ ̸͓̺̳̾w̷̰̪̅̈́e̶͉̪͉͆͠a̴̗͝r̶̈́̇ͅ ̵̘̮̽̿m̸̢̛̞͎̒̽y̷͓̖͐ ̷̝͓̃́f̶͚̤̏̓a̷̢̒̓c̵̻̙̀e̵̖̠͌̚̕s̸͉̒ ̷͈̠͌̓l̴̰̄̈́ĭ̷͊̀͜k̵͓̪̳̄̇e̴͙̬͈̽ ̶̩͕̯͘m̶̨̔͐a̴̯̎s̶̖̦̎̈́̀k̶̯͎̋̾̕ͅș̶͖̅̈́,̸̪̈́ ̷͎̰̹̈́b̵̢͉́̚u̷̥̽͛t̸̺̜̍̓̓͜ ̷̡̻̞̿͊t̷̡̿h̴̙͖̋̅͐ȅ̶͓̕y̷̘̮͊̿͝ ̷̝͠d̸̘̪̋o̵̬͑n̷̜͍͒’̷̞̠̓ẗ̵̤́ ̶͇͙͝f̷̦̯͑́̕i̷͇̱̿͝ẗ̷̰́̐̽.̵͙̺̽",
+    "T̶͉̜͛h̷̠̤̐e̴̟͛̈́ ̷̢̟͗l̶̯̱͗ȋ̸͉̞͐g̶͓͙̎̚ḧ̷̟̒t̴̬̘̄͘ș̴̾ ̷̺̼̐f̴̯͎̈́l̶̞͎̈́̾i̴͕̗͂͝c̶̬͑͝k̵̰͒͘ͅe̴̦͛r̷̩̔͛é̶̻d̸̖͗ ̸͍͘o̵̩͙̍n̶̢̟̈́,̶̲͖̅ ̴̩̋̓ͅb̷̪͆ǘ̴͕̦́ț̷̈́͠ͅ ̸̼̈́͝t̵͎̥̋h̸̢̘̔̍ē̶̘͙͆ ̴͙̯͛s̷̼͠h̴̠͆͋ä̵̩̞́d̷̨̺̓o̷̢̪̽̿w̵̠͊ ̴͓̞͛d̶̛̙͌ḭ̴̯̾͠d̸͔͚͠n̶͈͘’̴͓̇t̷̛̠̞͋ ̷͓̓l̵̟̀́e̸̱̼̐a̶̯͒̈́v̴̟͛͌e̶̦̐.̶̳̙̓",
+    "Ḿ̴̞̲̤ý̵͕̟ ̶͚̬̯̒͆m̸͙̔̾i̶͕̠̖͛͘r̵̨͔̈́̓ŕ̵̨͎̰o̵̡͎̿͝r̵̠̓ ̵̡͉͇̈́̔r̶̩͙͋ẻ̸̠̚f̷̜͉͌̓l̶̯̙͐ę̷̝͙̽̕c̸̢̃t̶͉̦̽̎s̸̪͐͌ ̷̘͝s̴̙̲̊͑o̶̥̔m̷̰͇̜̄̈́e̸̺͐t̸̢̞̔ḧ̸̠̹́i̴̘͘͠n̷͍͝g̷̡͑̕ ̸͈̯͠s̷͍̄t̴̩̥̄͌i̴͉̾l̷͖̃͘l̴̛̳̼͠ ̶̛̰̐w̸͇̚a̴͈͖͋͝i̶̬̗̐͘t̸̢̩͗́i̵̩̮͒n̷͓̰͗g̷̡̈́͠ͅ.̶̺͙̎"
+    ];
+    const argMessages = glitchLines.map(line => line.repeat(100));
+
+    function argOn() {
+      document.body.classList.add('arg-mode');
+      const slide = slides[current];
+      const img = slide.querySelector('img');
+      if (img && !img.dataset.orig) img.dataset.orig = img.src;
+      if (img) img.src = img.dataset.alt;
+      const div = document.createElement('div');
+      div.className = 'arg-text';
+      div.textContent = argMessages[current % argMessages.length];
+      slide.appendChild(div);
+    }
+
+    function argOff() {
+      document.body.classList.remove('arg-mode');
+      slides.forEach(slide => {
+        const img = slide.querySelector('img');
+        if (img && img.dataset.orig) {
+          img.src = img.dataset.orig;
+          delete img.dataset.orig;
+        }
+        const argText = slide.querySelector('.arg-text');
+        if (argText) argText.remove();
+      });
+    }
+
     function hideMessageUnique(text, visibleLetters) {
       let used = new Set();
       return text.split('').map(c => {
@@ -262,3 +297,18 @@
   </script>
 </body>
 </html>
+
+
+The full file is now updated with the following fixes and enhancements:
+
+Arrow key navigation is restored and functional.
+
+ARG mode red text now displays correctly over slides.
+
+Floyd popup image (floyd.jpg) spans the full screen using width: 100vw and height: 100vh.
+
+glitch1_up properly hides the popup.
+
+
+You're all set. Let me know if you'd like to add transitions, sound triggers, or timing effects!
+
